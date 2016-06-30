@@ -1,0 +1,912 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Draft//EN">
+<HTML>
+<HEAD>
+<TITLE>Sound Blaster AWE 32/64 HOWTO</TITLE>
+</HEAD>
+<BODY>
+<H1>Sound Blaster AWE 32/64 HOWTO</H1>
+
+<H2>by Marcus Brinkmann <CODE>&lt;
+<A HREF="mailto:Marcus.Brinkmann@ruhr-uni-bochum.de">Marcus.Brinkmann@ruhr-uni-bochum.de</A>&gt;</CODE></H2>v1.2, 11 January 1998
+<P><HR>
+<EM>This document describes how to install and configure a Sound Blaster 32 (SB AWE
+32, SB AWE 64) card from Creative Labs in a Linux System using the AWE
+Sound Driver Extension written by Takashi Iwai. It also covers some special
+tools and players for the SB AWE series. Reference system is a Debian
+GNU/Linux System, but every other Linux Distribution should also work.</EM>
+<HR>
+<H2><A NAME="s1">1. Introduction</A></H2>
+
+<P>
+<P>This is the Sound Blaster AWE HOWTO. It gives you detailed information about
+getting the most out of your Sound Blaster 32 or better, including Wave
+Table synthesis. This document covers all SB cards up from the SB 32.
+<P>The Sound Blaster series is well-known in the DOS and Windows community, and
+a lot of Linux users want to use this sound card under Linux as well.
+Unfortunately, Creative Labs only provides a sound driver for Windows and
+DOS, so it is not trivial to install and use a SB card under Linux. This
+document tries to describe how one can use the features of the SB AWE series
+under a Linux environment.
+<P>
+<H2>1.1 Acknowledgments</H2>
+
+<P>
+<P>This documents contains information I got from the AWE Driver FAQ and the ISA PnP FAQ.
+See section 
+<A HREF="#sources">Sources</A> for author and location of this
+documents. Thanks to the authors, the SB AWE support is possible.
+<P>A lot of essential work was done by 
+<A HREF="http://www.4front-tech.com/usslite">Hannu Savolainen</A>, who developed the sound driver
+that comes with the Linux kernel. Thank you!
+<P>I want to thank 
+<A HREF="mailto:n.bern@mail.protos.it">Nicola Bernardelli</A>
+for testing the AWE64 stuff. Without
+him, many errors would have remained undetected.
+<P>Thanks to the 
+<A HREF="ftp://sunsite.unc.edu/pub/Linux/utils/text/sgml-tools-0.99.0.tar.gz">SGML Tools</A> package, this HOWTO is available in several
+formats, all generated from a common source file.
+<P>
+<H2>1.2 Revision History</H2>
+
+<P>
+<P>
+<DL>
+<P>
+<DT><B>Version 1.0</B><DD><P>first version
+<DT><B>Version 1.1</B><DD><P>corrected spelling (thanks Curt!), added version
+requirement for <CODE>isapnp</CODE>, now available via sunsite and lots of mirrors
+<DT><B>Version 1.2</B><DD><P>French version now available!, minor corrections, lots
+of spelling fixed (thanks to ispell)
+<P>
+</DL>
+<P>
+<P>
+<H2>1.3 New versions of this document</H2>
+
+<P>
+<P>The latest version can be found on my Home Page, namely at
+<A HREF="http://homepage.ruhr-uni-bochum.de/Marcus.Brinkmann/soundblaster.html">Sound Blaster AWE HOWTO</A>.
+<P>New versions of this document will be uploaded
+to various anonymous ftp sites that archive such information including
+<A HREF="ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/mini">ftp://sunsite.unc.edu/pub/Linux/docs/HOWTO/mini</A>.
+<P>Hypertext versions of this and other Linux HOWTOs are available on
+many World-Wide-Web sites, including 
+<A HREF="http://sunsite.unc.edu/LDP/">http://sunsite.unc.edu/LDP/</A>. Most Linux CD-ROM
+distributions include the HOWTOs, often under the
+<CODE>/usr/doc</CODE> directory.
+<P>Thanks to Arnaud Launay 
+<A HREF="mailto:zoro@lsol.tm.fr">zoro@lsol.tm.fr</A>, a French version of this document is now available! 
+The latest version can be found via 
+<A HREF="http://www.freenix.fr/linux/HOWTO">http</A>
+or 
+<A HREF="ftp://ftp.lip6.fr/pub/linux/french/docs/HOWTO">anonymous ftp</A>.
+<P>If you make a translation of this document into another language, let
+me know and I'll include a reference to it here.
+<P>
+<H2>1.4 Feedback</H2>
+
+<P>
+<P>I rely on you, the reader, to make this HOWTO useful. If you have any
+suggestions, corrections, or comments, please send them to me,
+<A HREF="mailto:Marcus.Brinkmann@ruhr-uni-bochum.de">Marcus.Brinkmann@ruhr-uni-bochum.de</A>, and I will try to incorporate
+them in the next revision.
+<P>i would especially welcome information about the startup procedure (boot
+scripts etc.) of other famous Linux distributions, e. g. Red Hat or SuSE
+Linux.
+<P>If you publish this document on a CD-ROM or in hardcopy form, a
+complimentary copy would be appreciated. Mail me for my postal
+address. Also consider making a donation to the Linux Documentation
+Project to help support free documentation for Linux. Contact the
+Linux HOWTO coordinator, Greg Hankins 
+<A HREF="mailto:gregh@sunsite.unc.edu">gregh@sunsite.unc.edu</A>,
+for more information.
+<P>
+<H2>1.5 Distribution Policy</H2>
+
+<P>
+<P>Copyright 1997 Marcus Brinkmann.
+<P>This HOWTO is free documentation; you can redistribute it and/or
+modify it under the terms of the GNU General Public License as
+published by the Free Software Foundation; either version 2 of the
+License, or (at your option) any later version.
+<P>This document is distributed in the hope that it will be useful, but
+<B>without any warranty</B>; without even the implied warranty of
+<B>merchantability</B> or <B>fitness for a particular purpose</B>.
+See the GNU General Public License for more details.
+<P>You can obtain a copy of the GNU General Public License by writing to
+the 
+<A HREF="http://www.fsf.org">Free Software Foundation</A>,
+Inc., 675 Mass Ave, Cambridge, MA 02139,
+USA.
+<P>
+<P>
+<H2><A NAME="s2">2. Before you start</A></H2>
+
+<P>
+<P>
+<H2>2.1 Introduction</H2>
+
+<P>
+<P>This document tries to help you install and use a Sound Blaster AWE 32 or
+Sound Blaster AWE 64 from Creative Labs in your Linux system. The reference
+system is a 
+<A HREF="http://www.debian.org">Debian GNU/Linux</A>
+system on an Intel i586 platform, but it should work with any other Linux
+distribution as well as on every platform that is supported by the Linux
+sound driver (differences are mentioned where they appear, if any).
+<P>Be sure to read the Linux Sound HOWTO (see section 
+<A HREF="#moreinfo">Additional Information</A>) carefully. I consider my document a supplement
+to the Sound HOWTO, and often you can find more information about things
+I have left out there.
+<P>
+<P>
+<H2>2.2 Some general notes about the SB AWE cards</H2>
+
+<P>
+<P>The SB AWE 32 sound card provides a raw audio device, standard OPL-2/OPL-3
+synthesis, a MPU-401 MIDI port and 32 voices EMU 8000 Wave Table synthesis
+(for an explanation on these and other terms see the Linux Sound HOWTO).
+One goal of this document is to help you get all these features to
+work properly.
+<P>The SB AWE 64 has the capabilities of the SB AWE 32 and an additional
+Wave Guide synthesis Creative Labs is especially proud of. The problem for
+Linux users is, that the additional 32 voices are software generated and
+output via the raw wave devices. Because Creative Labs sees no market in
+Linux drivers, a Wave Guide synthesis sound driver is only available for
+Windows 3.1 and Windows 95.
+<P>This means that, from a Linux user's point of view, the SB AWE 32 and
+SB AWE 64 are almost identical. From now on I will only refer to the
+SB AWE in general and will only mention differences where they appear (if
+any).
+<P>
+<P>
+<H2>2.3 Some general notes about the Plug and Play cards</H2>
+
+<P>
+<P>Most modern cards for the Intel platform are ISA PnP cards, which is an
+abbreviation for ``Plug and Play''. This means, that the card has to be
+configured by the operation system, and this has to be done through an
+initialization routine at boot time. In general, there are at least three
+possible ways to do this:
+<P>
+<OL>
+<LI>You have a PnP Bios, which means that your Bios is aware of PnP
+cards and can configure them. If you think you can use all the
+features of your SB AWE PnP just because you have a PnP Bios, you
+are out of luck. Even if the Bios claims to support PnP cards it
+only initializes a subset of the ports and addresses used by your
+sound card. You will probably be able to play raw wave data, but you
+won't be able to play MIDI music, for example. For this reason, a
+PnP Bios is not an option.
+</LI>
+<LI>You have an operating system that supports PnP cards. The current stable
+Linux kernel (2.0.x) is not such an operating system, so we have to wait for
+future kernel releases, that will support PnP devices.
+</LI>
+<LI>You have a special program, started at boot time, that initializes your
+PnP cards. This is the way we do it.</LI>
+</OL>
+<P>The most commonly used software to initialize PnP cards under Linux are the
+``isapnptools'' (see section 
+<A HREF="#sources">Sources</A> and section
+<A HREF="#isapnp">Getting Started</A>). They provide a predictable way to
+configure all ISA PnP cards in your machine, not only your sound card.
+<P>
+<P>
+<H2>2.4 Some general notes about loadable kernel modules</H2>
+
+<P>
+<P>Some device drivers can be built as modules instead of compiling them into the
+kernel. You can find more information about modules in the Kernel HOWTO and
+the Module HOWTO (see section 
+<A HREF="#moreinfo">Additional Information</A>).
+<P>If you have a PnP card, you <EM>must</EM> install sound support as a loadable kernel
+module. This means, that you can't build the sound driver into the kernel,
+but you will have to build it as a module that can be loaded into the
+kernel at runtime. This is because the kernel will be installed before your
+ISA PnP card can be configured, and your sound driver has to be loaded after
+your ISA PnP card is configured.
+<P>The sound kernel module can be loaded manually via <CODE>insmod sound</CODE> or
+<CODE>modprobe -a sound</CODE> or in the appropriate boot script of your Linux system
+(in Debian, it is sufficient to append a single line containing
+<CODE>sound</CODE> to <CODE>/etc/modules</CODE>). Another approach is to
+launch <CODE>kerneld</CODE>, a daemon that installs and removes kernel
+modules as needed.
+<P>Note that <CODE>kerneld</CODE> may not be the best solution for the AWE
+sound driver module, because it takes time to load the module in the
+kernel, especially if you want to use Wave Table synthesis and load big
+Sound Font banks, which you have to do each time after inserting the
+module. Because <CODE>kerneld</CODE> removes unused modules after one minute by default,
+it is perhaps better to insert the sound module manually or at boot
+time.  Note that inserting the sound module manually or at boot time does prevent
+<CODE>kerneld</CODE> from removing it when it is idle. By the way: You can
+manually insert the sound module and use <CODE>kerneld</CODE> at the same
+time. The two methods don't conflict, but <CODE>kerneld</CODE> does not care
+about the sound module anymore.
+<P>This is especially useful if your mixer settings get disturbed after
+removing and reinstalling the module. A solution for this problem will be
+given in section 
+<A HREF="#mixing">Mixing</A>
+(there is described how you can start your mixer automatically
+when the sound module gets inserted). However, it takes time for
+<CODE>kerneld</CODE> to load the module, to load the sound font bank and to start
+your mixer, and for this and other reasons it is better to install the sound module
+at boot time and not let <CODE>kerneld</CODE> remove it.
+<P>
+<P>
+<H2>2.5 Some general notes about the kernel sound driver</H2>
+
+<P>
+<P>You can install sound support in the kernel as a built-in or as a loadable
+module. If you have a PnP card, you have to install sound support as a
+module, because the PnP card needs to be initialized via the isapnptools
+before the module gets installed.
+<P>As you can imagine, you will have to recompile the kernel. I will give you a
+few hints about it below. For now, let's talk about the sound support in the
+kernel source. The kernel ships with the Free (Lite) Version of the OSS (USS)
+sound driver. The current version of this driver (3.5.4) does not support the
+SB AWE in full, but the SB 16 part of it. So you can have a raw audio device
+and OPL-2/OPL-3 synthesis if you use it, but you will not be able to play midi
+music with Wave Table synthesis.
+<P>If you want to use the Wave Table device, you can either buy the
+commercial sound driver from 
+<A HREF="http://www.4front-tech.com">4Front Technologies</A> (someone please confirm me that it can do it,
+please), or patch your kernel with the AWE 32 Sound Driver Extension by Takashi
+Iwai. The former is beyond the scope of this document, I assume you want to use
+the latter.
+<P>The AWE32 Sound Driver Extension (see section 
+<A HREF="#sources">Sources</A>) is published under the GNU copyright license and
+ships with a number of tools to make use of the EMU 8000
+wave synthesis of the SB AWE cards.
+<P>The <CODE>awedrv</CODE> software is already included in newer kernel source trees
+(starting from some 2.1.x kernels, but perhaps you want to upgrade the
+sources in your kernel tree, they may be old.
+<P>
+<P>
+<H2><A NAME="s3">3. How to install SB AWE sound support</A></H2>
+
+<P>
+<P>
+<H2>3.1 Things you will need</H2>
+
+<P>
+<P>These are the requirements for SB AWE support under Linux:
+<P>
+<UL>
+<LI>a functional Linux system (e.g. the Debian GNU/Linux distribution),</LI>
+<LI>a SB AWE 32 or compatible card (e.g. SB32, SB32 PnP, SB AWE64, ...),</LI>
+<LI>the sources of the Linux kernel, including the sound driver OSS/Free
+(normally included, check in <CODE>/usr/src/Linux/drivers/sound/Readme</CODE>),</LI>
+<LI>the AWE 32 sound driver extensions.</LI>
+</UL>
+<P>If you have a PnP card, you will also need:
+<P>
+<UL>
+<LI>the isapnptools software package. </LI>
+</UL>
+<P>Look in section 
+<A HREF="#sources">Sources</A> for information where you
+can obtain these programs.
+<P>If you have a Debian GNU/Linux system, this means that you will need
+the packages <CODE>kernel-source-&lt;version&gt;</CODE>, <CODE>awe-drv</CODE>
+and perhaps the package <CODE>isapnptools</CODE>.
+You will want some of the other <CODE>awe-*</CODE> packages
+although they are not essential. I strongly recommend the
+<CODE>kernel-package</CODE> for easy kernel compiling and installing.
+<P>
+<P>
+<H2><A NAME="isapnp"></A> 3.2 Getting started</H2>
+
+<P>
+<P>Let's assume you have properly installed your card in a socket on your
+motherboard and perhaps already tested it under a DOS or Windows environment.
+<P>The next step is to initialize the card at boot time if and only if it is a
+PnP card. Follow the documentation in the source package to compile and
+install <CODE>isapnptools</CODE> (or just use the Debian binary package), and make a
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# pnpdump &gt; /etc/isapnp.conf
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>as root. This will generate a hopefully proper configuration file for your
+PnP cards, but with all devices commented out. Please edit this file
+carefully, and compare the values for DMA channels, IO bases and interrupts
+with the configuration of the cards under an DOS or Window environment if
+possible (with Win95, look at the resources used by the card under
+<CODE>resources</CODE> in the <CODE>device manager</CODE>). If you have problems,
+read the documentation that ships with the <CODE>isapnptools</CODE> carefully.
+<P><EM>CAUTION:</EM> <CODE>isapnptools</CODE> often fails to detect all three I/O ports
+of the SB AWE Wave Table device. Please check carefully the <CODE>WaveTable</CODE>
+entry in your <CODE>isapnp.conf</CODE> against the example at the end of this HOWTO.
+Adjust the I/O base addresses if necessary.
+<P>
+<P><EM>CAUTION:</EM> According to the <CODE>isapnp-faq</CODE>, sometimes <CODE>isapnp</CODE>
+fails to program the number of the logical device. If you encounter error
+messages like the following:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+Error occurred executing request 'LD 2' on or around line...
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>then try adding <CODE>(VERIFYLD N)</CODE> at the top of <CODE>isapnp.conf</CODE>. You have
+to use at least version 1.10 for this to work. If you can't use version 1.10
+or newer, you can also POKE the logical device numbers directly. Please
+refer to the <CODE>isapnp-faq</CODE> for more information on this approach. If it
+doesn't work for you, please contact me (and the <CODE>isapnp</CODE> people
+will be interested, too, I would think).
+<P><EM>CAUTION:</EM> Make sure that the last line is <CODE>(WAITFORKEY)</CODE>,
+that will sometimes be omitted by older versions of <CODE>pnpdump</CODE>.
+<P>A sample <CODE>isapnp.conf</CODE> for only one PnP card (the sound card) can be found at
+the end of the document (see section 
+<A HREF="#isapnpconf">Sample <tt>isapnp.conf</tt></A>).
+<P>If you have a Debian system, no further adjustments are necessary.
+<CODE>isapnp</CODE> will be started at boot time in <CODE>/etc/init.d/boot</CODE> with
+this snippet of script code, that you may want to include in your boot scripts:
+<HR>
+<PRE>
+# Configure the isa plug and play boards before loading
+# modules. Need to do this before loading modules to get
+# a chance of configuring and starting PnP boards before
+# the drivers mess all this up.
+#
+if [ -x /etc/init.d/isapnp ]
+then
+  /etc/init.d/isapnp start
+fi
+</PRE>
+<HR>
+
+where <CODE>/etc/init.d/isapnp</CODE> is
+<HR>
+<PRE>
+#! /bin/sh
+# /etc/init.d/isapnp: configure Plug and Play boards
+test -x /sbin/isapnp || exit 0
+/sbin/isapnp /etc/isapnp.conf
+exit 0
+</PRE>
+<HR>
+<P>If you have another Linux distribution, you are on your own. I don't know
+what to do (anybody willing to submit more specific information?). Just make
+sure that isapnp gets started <EM>before</EM> the modules will be loaded (see
+below).
+<P>
+<P>
+<H2>3.3 Compiling the kernel</H2>
+
+<P>
+<P>Before recompiling the kernel, you have to apply the AWE Driver Extension to
+the sound driver. Even if your kernel source tree already includes the
+<CODE>awedrv</CODE> extension (check <CODE>/drivers/sound/lowlevel/</CODE> for that), you
+may want to upgrade the <CODE>awedrv</CODE> software. Follow the installation
+instructions in the <CODE>awedrv</CODE> source directory. In brief, you have to run
+an installation script that applies the patches to the kernel sources.
+<P>Be careful if you have upgraded the kernel source tree after running the
+install script. The script just checks if a certain file exists - if it
+exists, it does not apply the necessary patch. You are well advised to
+remove the file <CODE>drivers/sound/lowlevel/awe_wav.c</CODE> before running the
+script after upgrading the kernel source.
+<P>Next you have to configure the kernel for sound support. I hope you know a
+bit about kernel compiling; see the Sound HOWTO and the Kernel HOWTO for
+details. Go in the source directory of your kernel sources
+(<CODE>/usr/src/linux</CODE> for example), and do
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# make config
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>or <CODE>make menuconfig</CODE> or <CODE>make xconfig</CODE>. Then you have to
+configure your kernel in the standard way. Use this opportunity to make
+a small and powerful kernel, especially designed for your system. Be sure
+to answer <CODE>Enable loadable module support</CODE> with <CODE>Y</CODE>, if you want to
+install the sound driver as a loadable module (a <EM>must</EM> if you
+have a PnP card), but I'm sure you want to do it anyway.
+<P>At one point, you will be asked if you want sound card support. You are free
+to answer with <CODE>Y</CODE> or with <CODE>M</CODE> if you have <EM>not</EM> a PnP card.
+You <EM>must</EM> answer with <CODE>M</CODE>, for module, if you have a PnP card.
+You have to compile sound card support as a module if you have a PnP
+card because the PnP card has to be initialized before the module gets loaded.
+<P>The following questions you should answer with <CODE>Y</CODE>, all other with
+<CODE>N</CODE>:
+<P>
+<HR>
+<PRE>
+Sound Blaster (SB, SBPro, SB16, clones) support (CONFIG_SB) [Y/n/?]
+Generic OPL2/OPL3 FM synthesizer support (CONFIG_ADLIB) [Y/n/?]
+/dev/dsp and /dev/audio support (CONFIG_AUDIO) [Y/n/?]
+MIDI interface support (CONFIG_MIDI) [Y/n/?]
+FM synthesizer (YM3812/OPL-3) support (CONFIG_YM3812) [Y/n/?]
+lowlevel sound driver support [Y/n/?]
+AWE32 support (CONFIG_AWE32_SYNTH) [Y/n/?]
+</PRE>
+<HR>
+<P>Only the latter is actually for the Wave Table synthesis. The others are SB 16
+options from the OSS/Free sound driver.
+<P>In addition, you have to configure the sound card I/O port. Look at the
+<CODE>isapnp.conf</CODE> file for hints, if you have one. For me, the following default
+values are sufficient. Note that the default value from the kernel
+configuration script may be wrong (especially the values <CODE>SBC_IRQ</CODE> and
+<CODE>SB_MPU_BASE</CODE> seem to be incorrect for most cards).
+<P>
+<HR>
+<PRE>
+I/O base for SB Check from manual of the card (SBC_BASE) [220]
+Sound Blaster IRQ Check from manual of the card (SBC_IRQ) [5]
+Sound Blaster DMA 0, 1 or 3 (SBC_DMA) [1]
+Sound Blaster 16 bit DMA (_REQUIRED_for SB16, Jazz16, SMW) 5, 6 or 7
+(use 1 for 8 bit cards) (SB_DMA2) [5]
+MPU401 I/O base of SB16, Jazz16 and ES1688 Check from manual of the card
+(SB_MPU_BASE) [330]
+SB MPU401 IRQ (Jazz16, SM Wave and ES1688) Use -1 with SB16 (SB_MPU_IRQ) [-1]
+</PRE>
+<HR>
+<P>Now recompile the kernel. Debian users should use the
+<CODE>kernel-package</CODE>. This package makes the kernel compile as easy as
+installing a debian package. Look at the documentation in
+<CODE>/usr/doc/kernel-package/</CODE>. Here is a hint:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# make-kpkg clean
+# make-kpkg -revision custom.1.0 kernel_image
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>and then <CODE>dpkg -i /usr/src/kernel-image-2.0.29_custom.1.0_i386.deb</CODE>.
+<P>If you have another Linux distribution, follow the standard way for
+compiling a new kernel. Don't forget <CODE>make modules</CODE> and <CODE>make
+modules_install</CODE>. Look at the Sound HOWTO and perhaps the Kernel HOWTO
+for more information.
+<P>
+<P>
+<H2>3.4 Reboot</H2>
+
+<P>
+<P>After installing the new kernel, you should do a reboot (be sure to have a
+functional boot disk at hand). Cross you fingers.
+<P>If you have a PnP card be sure to launch isapnp either in a boot script (as
+described above) or manually:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# /sbin/isapnp /etc/isapnp.conf
+Board 1 has Identity 74 00 00 e3 10 48 00 8c 0e:  CTL0048 Serial No 58128
+[checksum 74]
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Now you can install the sound driver, if you have compiled it as a module:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# modprobe -a sound
+AWE32 Sound Driver v0.3.3e (DRAM 2048k)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>If you think the memory detection was not correct (I have a report of one
+who has a AWE64 with 4096k, and ``detected'' have been 28672k), try either
+to upgrade the <CODE>awedrv</CODE> software or to specify the amount of memory in the file
+<CODE>/usr/src/linux/drivers/sound/lowlevel/awe_config.h</CODE>, for example:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+#define AWE_DEFAULT_MEM_SIZE  4096   /* kbytes */
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Sorry, you have to recompile the kernel then (perhaps compiling the modules
+will be sufficient, but I don't know for sure).
+<P>If it works, you may want to have the sound module loaded automatically.
+You can use <CODE>kerneld</CODE> (why this is a bad idea is explained in section 1.4) or
+append a single line containing <CODE>sound</CODE> to your <CODE>/etc/modules</CODE> (in Debian)
+or add <CODE>/sbin/modprobe -a sound</CODE> to your start-up script.
+<P>
+<H2><A NAME="s4">4. Testing the Sound Driver</A></H2>
+
+<P>
+<P>
+<H2>4.1 <CODE>/proc/devices, /dev/sndstat</CODE></H2>
+
+<P>
+<P>If you have built-in sound support, you will get some useful information at
+boot time. If you have sound support installed as a loadable module, you can
+get the same information (perhaps after removing the sound module with
+<CODE>modprobe -r sound</CODE> first) with
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# modprobe -a sound trace_init=1
+Sound initialization started
+
+&lt;Sound Blaster 16 (4.13)&gt; at 0x220 irq 5 dma 1,5
+&lt;Sound Blaster 16&gt; at 0x330 irq 5 dma 0
+&lt;Yamaha OPL3 FM&gt; at 0x388
+Sound initialization complete
+AWE32 Sound Driver v0.3.3e (DRAM 2048k)
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>If you have a <CODE>/proc</CODE> virtual file system, you can look for the sound device
+with
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cat /proc/devices
+Character devices:
+[...]
+14 sound
+[...]
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>Next make sure you have the correct devices installed under <CODE>/dev/</CODE>. Please
+look at the Sound HOWTO for details. Then ask <CODE>/dev/sndstat</CODE> about the status of
+the sound module:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cat /dev/sndstat
+Sound Driver:3.5.4-960630 (Sat Oct 11 19:35:14 CEST 1997 root,
+Linux flora 2.0.29 #1 Sat Oct 11 19:12:56 CEST 1997 i586 unknown)
+Kernel: Linux flora 2.0.29 #1 Sat Oct 11 19:36:23 CEST 1997 i586
+Config options: 0
+
+Installed drivers:
+Type 1: OPL-2/OPL-3 FM
+Type 2: Sound Blaster
+Type 7: SB MPU-401
+
+Card config:
+Sound Blaster at 0x220 irq 5 drq 1,5
+SB MPU-401 at 0x330 irq 5 drq 0
+OPL-2/OPL-3 FM at 0x388 drq 0
+
+Audio devices:
+0: Sound Blaster 16 (4.13)
+
+Synth devices:
+0: Yamaha OPL-3
+1: AWE32 Driver v0.3.3e (DRAM 2048k)
+
+Midi devices:
+0: Sound Blaster 16
+
+Timers:
+0: System clock
+
+Mixers:
+0: Sound Blaster
+1: AWE32 Equalizer
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>If you don't have an output like this, perhaps there is an error in your
+configuration. Go on and see what doesn't work, then go back to step 
+<A HREF="#isapnp">Getting Started</A>, checking everything.
+<P>
+<P>
+<H2>4.2 Output - The Raw Audio Device</H2>
+
+<P>
+<P>Try to get an <CODE>.au</CODE> file (Sun workstation) or a raw sample file, and do 
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cat bell.au &gt; /dev/audio
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>resp.
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cat sample &gt; /dev/dsp
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>You should hear the content of the file via the <CODE>Audio Device 0: Sound
+Blaster 16 (4.3)</CODE>.
+<P>
+<P>
+<H2>4.3 Output - The OPL-2/OPL-3 Synthesis</H2>
+
+<P>
+<P>If you want to use the OPL-2/OPL-3 FM synthesis to play MIDI-Files with your
+sound card, try the program <CODE>playmidi</CODE> (see Appendix B). Start it with
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# playmidi -f dance.mid
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>or
+<P>
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# playmidi -4 dance.mid
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>The former will give you OPL-2, the latter OPL-3 MIDI music. If you are
+embarrassed about the sound, don't blame playmidi: It is the FM synthesis
+that sounds bad.
+<P>Imagine you would only have the OSS/Free Sound Driver: Than this is the
+quality of MIDI Music you can achieve (apart from software synthesis).
+Fortunately, you have a SB AWE, and you can use the Wave Table capabilities
+with the AWE Sound Driver Extension.
+<P>
+<P>
+<H2>4.4 Output - The Wave Table Synthesis</H2>
+
+<P>
+<P>The AWE Driver Extension comes with special tools (<CODE>awesfx</CODE>) to make use of the
+EMU 8000 Wave Table synthesis. First, you have to load a Sound Font Bank on
+your card - even if you want to use the ROM samples! You can get the files
+from your Windows installation - look for files ending in <CODE>*.sfb</CODE> or
+<CODE>*.sf2</CODE>.
+<P>The ROM samples can be loaded with <CODE>SYNTHGM.SBK</CODE>, real samples are in
+<CODE>SYNTHGS.SBK</CODE> and <CODE>SYNTHMT.SBK</CODE>, as well as in
+<CODE>SAMPLE.SBK</CODE>. You can get other
+Sound Font Banks via ftp or www, try the EMU Homepage, the web site from
+Creative Labs, and look out for the Chaos samples, they are really good (be
+sure to check out the AWE Driver Web Site).
+<P>Try to load the standard GM (ROM) set with
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# sfxload -i synthgm.sbk
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>and then play a midi file that comes with your SB AWE:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# drvmidi dance.mid
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>
+<P>
+<H2><A NAME="mixing"></A> 4.5 Mixing</H2>
+
+<P>
+<P>Get your favorite mixer program and start it. Start a raw audio
+sample and two MIDI files at the same time, and try out the mixer settings.
+Play a bit, it should be very easy. Here a list of the devices and how they
+are called:
+<P>
+<DL>
+<DT><B>Yamaha OPL-3</B><DD><P>Synth or FM
+<DT><B>AWE32 Driver</B><DD><P>Synth or FM (does anyone know a mixer were the last
+two are separated from each other?)
+<DT><B>Sound Blaster 16 (4.13)</B><DD><P>PCM or DSP
+<DT><B>PC Speaker (still alive)</B><DD><P>Spkr
+</DL>
+<P>Other mixer settings refer to the CD ROM, possibly connected to the
+sound card, to Master Volume, Bass, Treble and Recording Level of the
+different input lines. You can specify which lines should be recorded.
+<P>
+<H2>4.6 Input - Sampling with the Raw Audio Device</H2>
+
+<P>
+<P>You can record different sources: a connected CD ROM, a microphone connected
+to <CODE>mic</CODE>, and any that you can connect to <CODE>line in</CODE>. Set the
+mixer in the appropriate position. Play a sound and record into a file,
+reading from the Raw Audio Device, for example:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# cdplay
+# dd bs=8k count=5 &lt;/dev/dsp &gt;music.au
+5+0 records in
+5+0 records out
+# cat music.au &gt;/dev/dsp
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>records and plays five seconds of audio from the input device.
+<P>
+<H2>4.7 The MIDI Port</H2>
+
+<P>
+<P>Sorry, no information about MIDI port yet!
+<P>
+<H2><A NAME="s5">5. AWE Driver Software</A></H2>
+
+<P>
+<P>
+<H2>5.1 <CODE>sfxload</CODE></H2>
+
+<P>
+<P>You can load samples in your DRAM on the sound card with the <CODE>sfxload</CODE>
+tool. Note that you can only load one sample file per bank, with bank 0 as
+default. So, after <CODE>sfxload synthgs.sbk</CODE>, the only samples on your
+sound card are the GS samples. If you want to load additional Sound Font
+Banks, you have to use the <CODE>-b</CODE> option, for example:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# sfxload synthgs.sbk
+# sfxload -b1 sample.sbk
+# drvmidi sfx.mid
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>You can load a default Sound Font Bank automatically with installing the
+module. Just append a line like
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+post-install sound /usr/bin/sfxload synthgm.sbk
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>to your <CODE>/etc/conf.modules</CODE> file.
+<P>See the documentation for more details about <CODE>sfxload</CODE>.
+<P>
+<H2>5.2 <CODE>drvmidi</CODE></H2>
+
+<P>
+<P>With the <CODE>drvmidi</CODE> program, you can use your AWE Driver to play MIDI
+files. Just specify the name of your midi file after the command:
+<P>
+<BLOCKQUOTE><CODE>
+<PRE>
+# drvmidi waltz.mid
+</PRE>
+</CODE></BLOCKQUOTE>
+<P>See the documentation for more details about <CODE>drvmidi</CODE>
+<P>
+<H2><A NAME="s6">6. Appendix</A></H2>
+
+<P>
+<P>
+<H2><A NAME="moreinfo"></A> 6.1 Additional Information</H2>
+
+<P>
+<P>
+<DL>
+<DT><B>The Linux Sound HOWTO</B><DD><P>Author: Jeff Tranter, <CODE>&lt;
+<A HREF="mailto:jeff_tranter@pobox.com">jeff_tranter@pobox.com</A>&gt;</CODE>
+<P>Last Version: v1.17, 4 August 1997
+<P>Please take a good look at the Sound HOWTO (available from sunsite.unc.edu
+and other sites). It contains a bulk of data about compiling the kernel with
+sound support, and explains a lot about the sound devices, applications etc.
+<P>I understand this HOWTO as an addition to the Sound HOWTO.
+<P>
+<DT><B>The Linux Sound Playing HOWTO</B><DD><P>Author: Yoo C. Chung, <CODE>&lt;
+<A HREF="mailto:wacko@laplace.snu.ac.kr">wacko@laplace.snu.ac.kr</A>&gt;</CODE>
+<P>Last Version: v1.4, 13 May 1997
+<P>You should also look at the Sound Playing HOWTO. It tells you about the
+various sound formats and applications to play them.
+<P>
+<DT><B>The AWE Driver FAQ</B><DD><P>Author: Takashi Iwai <CODE>&lt;
+<A HREF="mailto:iwai@dragon.mm.t.u-tokyo.ac.jp">iwai@dragon.mm.t.u-tokyo.ac.jp</A>&gt;</CODE>
+<P>Source: 
+<A HREF="http://bahamut.mm.t.u-tokyo.ac.jp/~iwai/awedrv/awedrv-faq.html">http://bahamut.mm.t.u-tokyo.ac.jp/~iwai/awedrv/awedrv-faq.html</A><P>If you have problems installing the AWE Driver or using the Wave Table synthesis
+of your Sound Blaster card, then look here.
+<P>
+<DT><B>The ISA PnP FAQ</B><DD><P>Author: Peter Fox <CODE>&lt;
+<A HREF="mailto:fox@roestock.demon.co.uk">fox@roestock.demon.co.uk</A>&gt;</CODE>
+<P>Source: 
+<A HREF="http://www.roestock.demon.co.uk/isapnptools/isapnpfaq.html">http://www.roestock.demon.co.uk/isapnptools/isapnpfaq.html</A><P>If you have problems configuring your ISA PnP card, then this is your book
+of wisdom.
+<P>
+</DL>
+<P>
+<H2><A NAME="sources"></A> 6.2 Sources</H2>
+
+<P>
+<P>
+<DL>
+<P>
+<DT><B><CODE>isapnptools</CODE></B><DD><P>Author: Peter Fox <CODE>&lt;
+<A HREF="mailto:fox@roestock.demon.co.uk">fox@roestock.demon.co.uk</A>&gt;</CODE>
+<P>Last Version: 1.11
+<P>Source: 
+<A HREF="http://www.roestock.demon.co.uk/isapnptools/index.html">http://www.roestock.demon.co.uk/isapnptools/index.html</A><P>If mailing patches, bug reports or comments, please put 'isapnp'
+somewhere in the subject line, and mail to isapnp@roestock.demon.co.uk.
+<P>
+<DT><B><CODE>awedrv</CODE></B><DD><P>Author: Takashi Iwai <CODE>&lt;
+<A HREF="mailto:iwai@dragon.mm.t.u-tokyo.ac.jp">iwai@dragon.mm.t.u-tokyo.ac.jp</A>&gt;</CODE>
+<P>Last Version: 0.4.2c
+<P>Source: 
+<A HREF="http://bahamut.mm.t.u-tokyo.ac.jp/~iwai/awedrv/">http://bahamut.mm.t.u-tokyo.ac.jp/~iwai/awedrv/</A><P>
+<DT><B>Linux kernel</B><DD><P>Author: Linus Torvald and many other
+<P>Last Version: At the moment, you should use 2.0.29
+<P>Source: everywhere, where you can obtain Linux <CODE>:)</CODE>
+<P>
+<DT><B>OSS/Free</B><DD><P>Author: Hannu Savolainen (Please check 
+<A HREF="http://www.4front-tech.com/usslite before mailing me">http://www.4front-tech.com/usslite before mailing me</A>).
+<P>Last Version: I have 3.5.5-beta1
+<P>Source: with the Linux kernel source package
+<P>Information:  
+<A HREF="http://www.4front-tech.com/usslite">http://www.4front-tech.com/usslite</A> or 
+<A HREF="http://personal.eunet.fi/pp/voxware">European mirror</A>.
+<P>
+</DL>
+<P>
+<H2><A NAME="isapnpconf"></A> 6.3 Sample <CODE>isapnp.conf</CODE></H2>
+
+<P>
+<P>In the ISA PnP configuration file created by pnpdump, the single devices of
+your PnP cards appear as sections. In the output below, one card was
+detected (the sound card), with four logical devices:
+<P>
+<UL>
+<LI><CODE>LD 0</CODE>: Audio Device</LI>
+<LI><CODE>LD 1</CODE>: IDE Device</LI>
+<LI><CODE>LD 2</CODE>: WaveTable Device</LI>
+<LI><CODE>LD 3</CODE>: Gameport Device</LI>
+</UL>
+<P>I left <CODE>LD 1</CODE> unconfigured, because I have no CD ROM attached to my sound card
+IDE port. If you have no IDE port on your SB, then <CODE>LD 1</CODE> will be the Gameport
+Device and <CODE>LD 3</CODE> will not appear.
+<P>Please refer to section 
+<A HREF="#isapnp">Getting started</A> for further
+(important!) information about this file.
+<P>
+<HR>
+<PRE>
+# $Id: pnpdump.c,v 1.9 1997/06/10 21:37:32 fox Exp $
+# This is free software, see the sources for details.
+# This software has NO WARRANTY, use at your OWN RISK
+#
+# For details of this file format, see isapnp.conf(5)
+#
+# For latest information on isapnp and pnpdump see:
+# http://www.roestock.demon.co.uk/isapnptools/
+#
+# Compiler flags: -DREALTIME -DNEEDSETSCHEDULER
+
+(READPORT 0x0203)
+(ISOLATE)
+(IDENTIFY *)
+
+# Try the following if you get error messages like
+# Error occurred executing request 'LD 2' on or around line...
+
+#(VERIFYLD N)
+
+# ANSI string --&gt;Creative SB32 PnP&lt;--
+
+(CONFIGURE CTL0048/58128 (LD 0
+#     ANSI string --&gt;Audio&lt;--
+
+  (INT 0 (IRQ 5 (MODE +E)))
+  (DMA 0 (CHANNEL 1))
+  (DMA 1 (CHANNEL 5))
+  (IO 0 (BASE 0x0220))
+  (IO 1 (BASE 0x0330))
+  (IO 2 (BASE 0x0388))
+
+  (ACT Y)
+))
+
+(CONFIGURE CTL0048/58128 (LD 1
+#     ANSI string --&gt;IDE&lt;--
+
+# (INT 0 (IRQ 10 (MODE +E)))
+# (IO 0 (BASE 0x0168))
+# (IO 1 (BASE 0x036e))
+
+# (ACT Y)
+))
+
+(CONFIGURE CTL0048/58128 (LD 2
+#     ANSI string --&gt;WaveTable&lt;--
+
+  (IO 0 (BASE 0x0620))
+  (IO 1 (BASE 0x0A20))
+  (IO 2 (BASE 0x0E20))
+
+  (ACT Y)
+))
+
+(CONFIGURE CTL0048/58128 (LD 3
+#     ANSI string --&gt;Game&lt;--
+
+  (IO 0 (BASE 0x0200))
+  (ACT Y)
+))
+
+# Returns all cards to the &quot;Wait for Key&quot; state
+(WAITFORKEY)
+</PRE>
+<HR>
+<P>
+</BODY>
+</HTML>

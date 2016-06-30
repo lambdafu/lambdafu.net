@@ -1,0 +1,670 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>Marcus Brinkmann &mdash; SB Live!</title>
+  </head>
+  <body>
+    <div id="head">
+      <h1>Marcus Brinkmann</h1>
+    </div>
+    <div id="main">
+      <h2>SB Live!</h2>
+      <p class="abstract">
+	I wrote a review of the Sound Blaster Live! sound card,
+	but it should not be understood as an objective test report.
+	For such a report I am lacking the technical prerequisites and knowledge
+	about sound technic. A strong emphasis is laid on the
+        accompanying software, and even for this reason only the report is
+        certainly subjectiv and unbalanced.
+      </p>
+      <h3>Sound Blaster Live! Review</h3>
+      
+      <ul>
+        <li><a href="#installation">Installation</a>
+        <li><a href="#hardware">Hardware</a>
+        <li><a href="#software">Software</a>
+        <li><a href="#application">Applications</a>
+      </ul>
+      <h3><a name="installation">Installation</a></h3>
+      <h4>First Impression</h4>
+      <p>
+        The Sound Blaster Live! is a surprisingly small card. First,
+        one realizes that there are no memory sockets on the card any more,
+        because the card shares memory on the motherboard with the processor
+        and all applications.  Second, it is a PCI card, which means
+        that it does not use ISA PnP technology.
+      <p>
+        Furthermore, the card is accompanied by a smaller board with
+        additional connectors - not all connectors fit in one single
+        slot. So, the sound card uses up two slots of the case,
+        although it does only occupy one PCI slot on the motherboard.
+      <p>
+      <h4>Hardware Installation</h4>
+      <p>
+        Pushing the card in the PCI slot needed a lot of pressure, but
+        eventually it fit.  Connecting the smaller board with the
+        additional connectors to the main board and installing both in
+        the case was no problem, although I only have a mini
+        case. Because the card is small and very short, it will not
+        hang through, and I'm sure I'll not experience deformations of
+        the board as it happened with the Sound Blaster 32 PnP.
+      <h4>Software Installation</h4>
+      <p>
+        After booting Windows 95, the automatic hardware detection
+        asked for a driver. I tried to use the Installation CD, but it
+        failed. The hardware detection at boot time had to be aborted,
+        and the installation had to be continued later, a fact that may
+        be confusing to a beginner but probably does not surprise a
+        more advanced user.
+      <p>
+        So, I aborted the auto detection and let Windows 95 complete
+        the boot procedure. Then I inserted the Installation CD.
+        Because I do not use the auto start feature, I started the
+        installation program manually. It came up, and I was faced
+        with a list of software items to choose from.
+      <p>
+      <ul><p>The list of software items at installation time</p>
+        <li>CT SB Live!
+        <li><a href="#keytar">CT Keytar</a>
+        <li>CT Rythmania
+        <li><a href="#experience">SB Live Experience</a>
+        <li><a href="#cakewalk">Cakewalk Express Gold</a>
+      </ul>
+      <p>
+        The first item is the hardware driver plus additional
+        utilities, and is the only item which is mandatory. To install
+        it, 56 MB free disk space are required, a fact that was quite
+        disturbing to me, but unfortunately common in the Windows
+        world. Although prizes for hard disks are decreasing, I'd
+        appreciate it if software developers would care more about the
+        size of the programs. The 56 MB are not a big deal, but if you
+        add the size of the operating system and the required drivers
+        for all hardware items installed, the complete size is
+        unappealing to me. Another reason is that a lot of RAM will be
+        wasted at run time. I'll come back later to this topic, when
+        discussing the applications.
+      <p>
+        Direct X is needed, and will be installed automatically. As
+        this is a component mostly independent from the sound card, it
+        would be better to make this a seperate step, or at least ask
+        for confirmation. In general I would prefer a more flexible
+        way to choose components for installation, although I realize
+        that the table above is ideal for unexperienced users.
+      <p>
+        After the necessary reboot, a Readme text was offered, which I
+        investigated.  As I have only a Pentium 100 MHz, the install
+        program asked me for confirmation if I really want to proceed,
+        as a Pentium with at least 200 MHz is recommended.
+        Nevertheless I chose to continue.
+      <p>
+        Then, RUNDLL32 caused an error due to an invalid memory page
+        in module KERNEL32.DLL. Fortunately I could ignore the error
+        without impact on the installation. At least I could not
+        detect any errors yet.  An experienced user is used to random
+        errors in Windows, but a beginner will certainly feel uneasy
+        with this.
+      <h4>Facit</h4>
+      <p>
+        The installation is easy enough even for an unexperienced
+        user, but an experienced user will miss the possibility to
+        choose between smaller components. The installation went
+        smoothly, although I encountered a few edges which may be seen
+        as a real problem by beginners.
+      <h3><a name="hardware">Hardware</a></h3>
+      <h4>Boards</h4>
+      <p>
+        The Sound Blaster Live! consists of two boards, a PCI card and
+        a smaller extension card providing additional connectors.
+      <p>
+        The board uses the PCI bus, which was necessary because the
+        amount of data that has to be transmitted has increased with
+        DirectSound by Microsoft and the use of multiple streams of
+        audio. Hence, the change to a PCI bus architecture was
+        necessary for Creative Labs to cope with the performance
+        needs.
+      <p>
+        However, despite the difference in bus architecture, the SB
+        Live! card should be backward compatible to prior Sound
+        Blaster cards even under DOS.
+      <h4>Connectors</h4>
+      <p>
+        Some connectors are placed on the card, some are at the
+        outside and some on the extension card.
+      <ul><p>The connectors of the SB Live! card
+        <li>Microphone in
+        <li>Digital CD in
+        <li>Line in
+        <li>Telephone Answering Device in
+        <li>Line level out (front)
+        <li>RCA S/PDIF in
+        <li>Line level out (rear)
+        <li>RCA S/PDIF out
+        <li><a href="#joystick">Joystick port</a>
+        <li><a href="#midi">Mini MIDI DIN in/out</a>
+        <li>MPC-3 CD Audio in
+        <li>Auxiliary in
+        <li>Digital DIN out for future expansion to multi-speaker systems
+      </ul>
+      <h5><a name="joystick">Joystick port</a></h5>
+      <p>
+        The Joystick port can be used to attach a PC analog joystick
+        to the computer. MIDI cables which are connected to the
+        joystick port using a special adapter cable also work,
+        although you may prefer to use the <a href="#midi">mini MIDI
+        DIN interfaces</a> for this.
+      <h5><a name="midi">Mini MIDI DIN</a></h5>
+      <p>
+        Midi in and midi out are placed at the extension card and can
+        be used to attach MIDI devices to the SB Live! card, makes it
+        a good card for MIDI recording and playing. A converter for
+        normal sized MIDI DIN plugs is provided with the card. This
+        makes the special joystick adapter cable unnecessary, which
+        had to be used with earlier Sound Blaster cards.
+      <h4><a name="emu">Emu 10K1</a></h4>
+      <p>
+        The Emu 10K1 is the nerve of the SB Live! card, an audio
+        processor with over two millions transistors and more than
+        1,000 MIPS of raw processing power. The chip provides 131
+        hardware audio channels.
+      <ul><p>The channels of the EMU 10K1
+        <li><a href="#audio">64 Sound Engine channels</a>
+        <li>32 Host Record channels
+        <li>2 Stereo Sample-Rate-Converted Record Channels
+        <li>1 Single Microphone 8 kHz Sample-Rate-Converted Host Record Channel
+        <li>32 External TRAM 32 reads or writes for effects engine, delay lines for reverbs etc.
+      </ul>
+      <h5><a name="audio">Audio Channels</a></h5>
+      <p>
+        The 64 audio channels are dedicated to output sounds, and can
+        be played back at an arbitrary sample rate. But each of these
+        channels can also be used as a Wavetable synthesizer in
+        addition of the 192 voices of the PCI wave-table synthesis.
+        The audio channels process signals at 32-bit, 192
+        dB, 48kHz using 8-point interpolation to smoothen the sound.
+        This makes the Sound Blaster card highly useful to record and
+        play audio sources with CD quality.
+      <p>
+        The hardware does support full duplex at 8 standard sample
+        rates.
+      <h5>Effects</h5>
+      <p>
+        The Emu 10K1 is also responsible for the effects that can be
+        applied to the sound sources. Real time effects such as echo,
+        flanger, pitch shifting, auto-wah, ring modulator, distortion,
+        reverb and chorus can be combined and configured, allowing a
+        wide variety of distinct sound transformations.  Effects can
+        be routed into each other, which allows a fine control of what
+        happens to the sound.
+      <p>
+        You can use the effect engine of the SB Live!  for many
+        things, including as an effect processor for musical
+        instruments (like a guitar), as a pitch shifter for karaoke,
+        or to enhance digital audio or midi tracks.
+      <p>
+        The Emu 10K1 operates as a DirectSound accelerator, and can
+        accelerate up to 64 high quality 16-bit 48kHz audio streams
+        and 32 DirectSound 3D streams.  Furthermore, it can still
+        apply <a href="#envaudio">Environmental Audio</a> to all of
+        these and deliver the streams to multiple speakers. This shows
+        how much processing power is included in the Emu 10K1 chip.
+      <p>
+        The 256 voices can be used with 48 MIDI channels on three MIDI
+        ports, allowing the composer to forget about the hardware
+        limitations and concentrate on the music instead.
+      <h4>Speakers</h4>
+      <p>
+        The SoundBlaster Live! sound card allows the use of two or
+        four speakers to produce surround sound of high quality. If
+        only two speakers are connected, the card tries to emulate 3D
+        sound on those as good as possible, but the best result is
+        achieved when four speakers are connected to the card.
+      <p>
+        It is possible to position the sound of an audio source in the
+        virtual space created by four speakers using the <a
+        href="#speaker">speaker configuration software</a>.
+      <p>
+        In the future, software updates will make it possible to use
+        up to eight speakers with the SB Live! card.
+      <h4>Digital I/O</h4>
+      <p>
+        The extension card features not only two mini MIDI connectors,
+        but also digital S/PDIF input/output as well as a digital DIN
+        connector. The latter will make it possible to connect up to
+        eight speakers to the card.
+      <p>
+        The S/PDIF connectors make it possible to connect S/PDIF
+        compatible digital audio devices to the sound card for digital
+        audio recording and playback.  S/PDIF complatible devices are
+        for example DAT player. Users can also connect their CD-ROM
+        drive to the CD Digital-In connector on the card if their CD
+        ROM player is S/PDIF compatible. This way, they can record the
+        digital audio data directly.
+      <h4>Music Synthesis</h4>
+      <p>
+        The SB LIve! card allows music synthesis with up to 256
+        voices. Those are seperated in 192 PCI Wavetable voices and 64
+        voices from the <a href="#emu">Emu 10K1</a> itself. This
+        allows the use of an increased number of MIDI instruments at
+        the same time. Now you can use the sustain pedal in your midi
+        works without being afraid that prior notes are chopped off
+        due to a limited number of midi voices.
+      <p>
+        To use MIDI music, you need to load a SoundFont in the RAM of
+        the host machine. Up to 32 MB RAM can be dedicated to the SB
+        LIve! to be used for SoundFonts. Provided are 2 MB, 4 MB and 8
+        MB default SoundFonts (GM compatible). Additional SoundFonts
+        can be purchased and easily installed using the <a
+        href="#soundfont">SoundFont configuration</a> program.
+      <h4>Facit</h4>
+      <p>
+        The hardware of the SB Live! card is excellent, and usable for
+        both, entertainment and productivity. The complete set of
+        interfaces to external devices, the number of high quality
+        audio channels and the high number of midi channels and voices
+        show how usable the SB Live! card is for music recording and
+        composing. The Environmental Audio and DirectSound3D support,
+        as well as the possibility to connect up to eight speakers
+        prove the usability of the card for entertainment.
+      <h3><A href="#software">Software</a></h3>
+      <p>
+        The Sound Blaster Live! is only useful in conjunction with
+        software to control its features. Fortunately, the driver
+        ships with powerful and easy-to-use software for this purpose.
+<H4>Driver Applications</H4>
+<UL><P>Tools installed with the driver software.</P>
+<LI><A HREF="#launcher">Creative Launcher</A></LI>
+<LI><A HREF="#playcenter">PlayCenter</A></LI>
+<LI><A HREF="#wavestudio">Creative Wave Studio</A></LI>
+<LI><A HREF="#soundole">Soundo'LE</A></LI>
+<LI><A HREF="#mixer">Mixer</A></LI>
+<LI><A HREF="#tour">SB Live! Tour</A></LI>
+<LI><A HREF="#experience">SB Live! Experience</A></LI>
+<LI><A HREF="#envaudio">Environmental Audio</A></LI>
+<LI><A HREF="#keyboard">Creative Keyboard</A></LI>
+<LI><A HREF="#keytar">Creative Keytar</A></LI>
+<LI>Creative Rythmania</LI>
+<LI><A HREF="#graph">Creative SoundGraph</A></LI>
+<LI><A HREF="#soundfont">SoundFont</A></LI>
+<LI><A HREF="#speaker">Speaker</A></LI>
+</UL>
+<H5><A NAME="launcher">Creative Launcher</A></H5>
+<P>
+The Launcher is an application that is started at boot time and sits in
+the background, waiting for the mouse to move to the top of the screen. When
+this happens, a menu scrolls down and gives the user the option to start an
+application shipped with the Sound Blaster Live! card. This is a very fast
+way to start the applications, but the drawbacks are easily identified.</P>
+<P>
+First, you have to watch your mouse movements, or you'll make the menu appear by
+accident, which is at least irritating, but also either occupies expensive
+RAM or causes a small delay while the data is loaded from the swap space.
+Furthermore, this is far beyond the tasks I'd expect hardware driver
+software to fulfill. Personally, I like to choose the way I organize my
+desktop by myself.</P>
+<P>
+However, some people may be happy that they can go right ahead with the
+sound card applications, and the launcher is very flexible. You can configure
+it quite easily, and add your own programs to the menu. Because it is also
+very easy to deactivate, it does no harm that it is installed by default.</P>
+<P>
+The launcher can be configured to wait above the top border of the screen
+or below the bottom border. It can show symbols and text or only text, stay
+always on top and start automatically at boot time (and in this case, doesn't
+clutter up the autostart menu). The auto hide function can be switched off.
+You can add new menus and edit existing menus using the Group Manager.</P>
+
+<H5><A NAME="playcenter">PlayCenter</A></H5>
+<P>
+The PlayCenter replaces the earlier Creative MultiMediaDesk, and can play
+all commonly used audio formats and more (video, for example). It has the
+functionality to collect audio files in albums, which is very useful to
+organize your collection of sounds, midi files etc.</P>
+<P>
+Beside the usual control elements for player applications (Play, Stop,
+Pause, Forward, Rewind, Next, Previous, number pad, various playing modes
+like Loop and Shuffle), the player allows direct access to two Sound Blaster
+Live! features, namely <A HREF="#envaudio">Environmental Audio</A> and
+Stereo Enchancement Mode. The latter can only be switched on or off,
+whereas the former offers a menu containing the defined environments.</P>
+<P>
+The PlayCenter can play Media files directly out of the file system or
+from albums, which are collections of media files. You can create and edit
+the albums as you like. A function to auto create initial albums
+using the media files found in your file system is provided, although the
+result should be edited to make them more useful.</P>
+<P>
+The PlayCenter will run about any audio and video media  you can
+find. Sometimes, special system libraries are required that you most probably
+already have. With a special PC-DVD disk drive you can even play DVD disks
+comfortably. As I don't own such a disk, I couldn't test it, but the
+explanations in the help file look very promising.</P>
+<P>
+The Look and Feel is modelled after a black metal hifi device. The same
+functionality could be offered by a more conventional interface, without
+a faked LCD display and the use of many colors. The grey shaded pull down
+menus are simply ugly and have a very low contrast, which makes them hard to
+read. I always wonder why great efforts are spent in the appearance of the
+driver software is made. The SB Live! is technically convincing and does not
+need additional gleam.
+This is not only a matter of taste: Sometimes the colors of the launcher window
+are not restored properly in 256-colors (8 bit) mode.</P>
+<P>
+The Launcher will play the media files in one album consecutively, without
+a break between the various file. This is not only disturbing, because there
+is no pause for the ear to prepare for a new sound, but also an error, because
+various Midi files last notes are not played long enough. I did not find an option
+to introduce a delay between two media files.</P>
+
+<H5><A NAME="wavestudio">Creative WaveStudio</A></H5>
+<P>
+The WaveStudio application is a wave recorder and processor. It can record
+many wave files at the same time in three different sample rates. You can play back
+single files (even from a special point, skipping the beginning) or selected parts
+of it. You can play back all files and mix them, which can be fun. But there
+is no easy way to get all files in sync, as you can't play existing files while
+recording another one.</P>
+<P>
+You can apply effects to the recordings. All important effects are there,
+namely Reverse, Fading, Panning, Echo, Phase Shift and some basic channel editing
+features.</P>
+<P>
+However, there is a serious problem: There is no record volume indicator,
+which means, you can't control the input gain of your source correctly. This
+makes this program completely unusable for serious recording efforts and seems
+to be a bug in the application, as a volume indicator is mentioned in the help file.
+It is just nowhere to be found.</P>
+
+<H5><A NAME="soundole">Soundo'LE</A></H5>
+<P>
+Soundo'LE is a very simple wave recorder with OLE support, to embed wave
+recordings in other applications (e.g. WordPad). Again, although a volume
+indicator is present in the window, it does not seem to work.</P>
+<P>
+There is a better application to do wave recording professionally.
+<A HREF="#soundforge">SoundForge XP</A> on the Applications CD
+is an advanced audio recording program (with a working volume monitor,
+by the way :).</P>
+
+<H5><A NAME="mixer">Mixer</A></H5>
+<P>
+The mixer is used to control the volume level of the sound card in
+general and the seperate devices in particular. The Sound Blaster Live!
+mixer is very clear and easy to use, as was every Sound Blaster mixer
+before.</P>
+
+<H5><A NAME="tour">SB Live! Tour</A></H5>
+<P>
+The SB Live! Tour is a set of Screencam movies which demonstrate some
+ways to work with the SB Live! software.</P>
+
+<H5><A NAME="experience">SB Live! Experience</A></H5>
+<P>
+The SB Live! Experience is a guided demonstration of the features of the SB Live!
+card. It is an interactive demonstration and it is recommended to try it
+after installation to get an impression of the capabilities of the card.</P>
+<P>
+Indeed, the demonstraction is quite impressive, and you can go and show it
+to your friends. After that, you may want to deinstall the Tour program
+again, because it is occupying a lot of disc space.</P>
+
+<H5><A NAME="envaudio">Environmental Audio</A></H5>
+<P>
+Environmental Audio makes the SB Live! an ideal card for games: It adds
+effects to the sound dynamically, and increases the atmosphere. But not
+only games can benefit from Environmental Audio. You can apply the effects
+to all audio sources you can use with the SB Live!.</P>
+<P>
+The Environmental Audio option window provides a way to apply effects
+to the audio sources. Predefined environments are ready for selection, but
+you can also design your own audio environments and save them for later use.
+Beside multiple Reverb and Chorus effects, you can also add Vocal Morpher,
+Ring Modulator, Auto Wah, Flanger, Distortion, Echo and Pitch Shifter.
+Each effect can be configured seperately in amount.</P>
+<P>
+The problem with conventional 3D positioning sound is that although the
+position of the sound seems to be correct, it does not take into account the
+surrounding space. For example, a sound in a cave does sound quite different
+if it is near or far away. The difference is not only the volume, but also
+the amount of echo, reverb and other characteristics.</P>
+<P>
+To deal with this problem, the software had to provide many samples of the
+same sound with different characteristics. This eats up a lot of disc space
+and is very expensive.</P>
+<P>
+Environmental Audio provides another solution for this. The driver software
+can be configured to take into account sound-modifying characteristics of the
+surrounding space, resulting in a more realistic sound experience.</P>
+<P>
+Software can benefit in two ways of the Environmental Audio features
+provided by the SB Live! cards. The first way effects existing software that
+is not aware of Environmental Audio. In this case, the user can specify an
+environment before the game is started. Although the enhancement is limited
+this way, you can improve the atmosphere of your favourite game or other
+audio source.</P>
+<P>
+New software will be able to make use of the Environmental Audio Extensions
+(EAX), a Environmental 3D positioning API by Creative Labs. This development
+software is an extension to the DirectSound3D API by Microsoft. As the
+latter is the standard API used by game developers using 3D positional audio
+games, many games will make use of the SB Live! features very soon.</P>
+<P>
+There is already one game which is aware of Environmental Audio, the game
+Unreal by Epic Games. Others will
+follow soon. According to George Thorn, director of developer relations at
+Creative Labs, over 100 developers are already working with EAX, and 30
+titles currently under development are actually using it.</P>
+
+<H5><A NAME="keyboard">Creative Keyboard</A></H5>
+<P>
+Creative Keyboard is a simple application to test the sounds of your
+installed MIDI banks. It is a virtual keyboard to be played with the
+mouse, and is derived from the virtual keyboard of the AWE control center
+shipped with the AWE cards. Unfortunately, you still can't use the computer
+keyboard to play the notes, but some other things have improved, for example
+the octave  and controller setting lever.</P>
+
+<H5><A NAME="keytar">Creative Keytar</A></H5>
+<P>
+Creative Guitar is a fun program that allows the user to choose among a set
+of guitars (ranging from Folk Guitar over Jazz Guitar to Electric Guitars)
+and play them using the mouse or the keyboard.</P>
+<P>
+Using the mouse, you move a plectrum over the strings, holding the mouse
+buttons down. The strings run from top to bottom, so you have to move the
+mouse from left to right. You can imagine that no fast play of single
+strings is possible.</P>
+<P>
+Using the keyboard, you hold it in your hand vertically, the keys outside.
+On the function keys, you can choose the chords with your left hand. On the
+number pad, you can play the bass string and the three chord strings.
+Changing the chords is a bit tricky, because on PC keyboards, some keys
+block other keys, and you can't press more than four keys anyway. Although
+this works a bit better than using the mouse, it does not give you fine
+control over what is happening.</P>
+<P>
+There are some configuration options, for example the chords which are set
+with the function keys, the midi instruments used, and the position of the
+string keys on the number pad. There are some background rythm you can sue
+for accompaning your solos.</P>
+<P>
+However, this is neither a replacement for a real guitar nor a tool to
+produce audio recordings, as no export facilites are provided.</P>
+
+<H5><A NAME="graph">Creative SoundGraph</A></H5>
+<P>
+The Creative SoundGraph is a small applet that shows the spectrum, amplitude
+or wave curve of the sounds currently recorded or played. This can be useful
+if you want to check your audio setup. For example, if you can't hear
+anything, you can first test if a sound is produced before examining your
+speaker connection. Or, you can see if the volume settings are well
+balanced.</P>
+
+<H5><A NAME="soundfont">SoundFont</A></H5>
+<P>
+The SoundFont window makes it possible for you to choose the MIDI sound font
+banks you want to load into your memory. They are used to generate the MIDI sounds
+via the WaveFont device.</P>
+<P>
+The SB Live! ships with three banks, different in size and therefore
+quality. You can choose between 2 MB, 4 MB and 8 MB soundfont banks. These
+default banks are GM Midi compatible and provide the standard set of GM
+instruments.
+</P>
+<P>You can either load complete sound font banks, or define the instruments
+of a bank explicitely. Furthermore, you can load a wave file to be used
+as an instrument.</P>
+
+<H5><A NAME="speaker">Speaker</A></H5>
+<P>
+In the speaker setup window, you can specify how many speakers are used (you can
+use up to 8 speakers). Furthermore, you can place the various sound sources
+in the virtual room to get flexible surround sound as you like it.</P>
+
+<h3>Applications</h3>
+<P>
+The Sound Blaster Live! is accompanied by a rich software bundled, featuring
+some excellent sound applications as well as some not-so-excellent add-ons
+to play with. The documentation is included on the CD in Acrobats PDF .
+The Acrobat Reader itself is also contained.</P>
+<H4>Additional Software</H4>
+<UL><P>Software contained on the Application CD.</P>
+<LI><A HREF="#soundforge">SoundForge XP 4.0</A></LI>
+<LI><A HREF="#mixmanstudio">Mixman Studio</A></LI>
+<LI><A HREF="#cakewalk">Cakewalk Express Gold</A></LI>
+<LI><A HREF="#prodyparrot">Prody Parrot</A></LI>
+<LI>Unreal by Epic Games</LI>
+</UL>
+<H5><A NAME="soundforge">SoundForge XP 4.0</A></H5>
+<P>SoundForge XP by Sonic Foundry is an advanced audio recording program, much better
+than <A HREF="#wavestudio">WaveStudio</A> that is installed with the driver.
+It offers a complex but easy to use recording and editing suite and extensive
+online help with many background information about sound processing.</P>
+<P>
+With SoundForge, you can process multiple wave files at the same time.
+To record a source, a special window is opened, which offers a volume and peak
+monitor as well as flexible recording options, for example, how long you
+want to record (this is useful to overwrite only a part of an existing recording).</P>
+<P>
+SoundForge provides convenient display and edit options, including but not limited
+to Zoom, Cut & Paste, Mix, Crossfade as well as cuseful Undo and Redo features.
+You can place Markers in a file at anywhere and use them to specify regions of audio data.</P>
+<P>
+Many ways to process the audio data are provided. You can fade, mute, invert, normalize,
+pan, convert between audio formats, smooth and enhance the audio source. Furthermore, a
+special function allows to change the length of a sample without affecting the pitch. This does
+work quite good, as long as you stay within reasonable durations. Stretching the length
+of a sample to 120% of its original size is reasonable. Speech can be stretched up to 140% of its
+original length. If you go further, you get a distorted sound, which can give quite
+interesting results.</P>
+<P>
+Many effects can be applied to the samples, namely Chorus, Delay/Echo, Distortion,
+Dynamics, Flange, Noise Gate, Pitch Bend and Reverb. Some of these names hide multiple
+similar effects, some of them are highly configurable. For example, for the Pitch Bend
+effect you can draw a curve diagramm to specify the amount of pitching at each time.</P>
+<P>
+A tone generator allows you to generate sine curves of a certain length,
+frequency and volume, but also square, saw, triangle and noise waveforms.
+Even DTMF/MF dial tones can be generated. Last but not least you can attach
+an AVI movie and synchronize the pictures with the audio samples.</P>
+<P>
+SoundForge is a high-quality addition to your audio production software
+collection. It is highly configurable and flexible, but nevertheless easy and
+comfortable to use. All important elements are directly accessible, and so you
+can get good results very fast. The good online documentation makes it a perfect
+environment for audio recording and editing.</P>
+
+<H5><A NAME="mixmanstudio">Mixman Studio</A></H5>
+<P>
+Mixman Studio by Mixman Technologies is a fast way to create techno mixes and similar
+noise. It makes available up to sixteen tracks with keys on your keyboard,
+and in a special mix mode the tracks are played if you press down those keys.
+You can tag certain tracks with the space bar, so they are played even when you unrelease
+the key. Pressing the Ctrl key, you enter the "solo mode", where all tagged tracks are silent
+until you release the Ctrl key again. In this way, you can mix techno songs and alike
+very fast and conveniently.</P>
+<P>
+As there are no editing capabilities, it is not useful for serious sound composing.
+Obviously, this program is intended to be fun for people who want to play their own techno
+sounds without learning much about music and music recording. For this group, Mixman Studio
+is a nice program to play with.</P>
+<P>
+For this sort of programs, it is very important that they are accompanied by many tracks to
+include in a mix. Mixman Studio comes with about 80 tracks, a random selection of bass lines,
+harmonics and drum breaks for techno, house and other scene music styles. People who want
+to use this softwware seriously will need to buy additional tracks on CD, 80 will not
+give enough variety to mix the songs you want to.</P>
+<P>
+Another solution is to record your own tracks, or to use existing .wav files, which is
+supported by Mixman Studio. However, one concern is that you usually can't achieve high
+quality recordings with home equipment. However, it is good and important that these import
+facilities are there. Additionally, you can save the complete mix as one
+huge wave file and share it with your friends. Well, if you have enough disk space at least:
+The demo mix that comes with Mixman Studio would take over 30 MB to save as a .wav file :)</P>
+
+<H5><A NAME="cakewalk">Cakewalk Express Gold</A></H5>
+<P>
+Cakewalk Express Gold is a full-featured midi sequencer and notation
+software. To cover all the capabilities of Cakewalk Express Gold would
+certainly not fit in this review. Beside midi recording and playback
+facilities, Cakewalk can also play up to 4 audio tracks parallel to
+the midi tracks.</P>
+<P>
+Together with <A HREF="#soundforge">SoundForge</A>, Cakewalk provides an
+ideal base for your home composing efforts with the SB Live! card.</P>
+<P>
+Cakewalk Express Gold is aware of the
+<A HREF="#soundfont">SoundFont</A> capabilities of the SB Live!
+card.</P>
+
+<H5><A NAME="prodyparrot">Prody Parrot</A></H5>
+<P>
+Prody Parrot is most likely the worst software in the bundle. It features
+a talking parrot, controlled by speech recognition, in the loosest sense of
+the term.</P>
+<P>
+The parrot is actually a small animated graphic which is flying around,
+sitting on windows frames and annyoing the user from time to time
+with his unintelligent comments. The comments are generated from text files
+by Text Assist, the text-to-speech software that was already bundled with the
+AWE cards. Unfortunately, it has hardly improved since then. Most advertised
+feature added in this version is an email filter, which should be able to
+read emails without confusing the listener by spelling each control character.
+But, Text Assist is still an insult to the ear and human language. The intonation
+is hardly correct, and the voice melody is so wrong that it is not only annoying, but
+often also confusing.</P>
+<P>
+The language recognition is done by Voice Assist and seems to work most of the time.
+I didn't spend much time to train the recognition algorithm, it worked surprisingly
+good out of the box, and I assume it works even better for a native english speaker.
+You can bind actions to certain phrases, which control windowing functions or start
+applications on request. Beside spoken language, Voice Assist can interpret keyboard
+commands and even mouse movements. The latter is disabled by default, and should be
+used carefully if at all.</P>
+<P>
+Everytime I started these applications, I wondered if they can be useful for anyone
+at all. Visually challenged people won't use TextAssist, because real text-to-speech
+engines are implemented in hardware and give much better results. People who want to
+use a microphone to work with the computer will buy serious dictating software which
+does not cost too much these days. The parrot is actually more useless then the Paper
+Clip in Word 97. If somebody uses one of these applications for their daily work,
+please let me know! Maybe there is some field of endeavor which I don't know
+and where these applications are useful.</P>
+
+      <div id="footer">
+	<p>
+	            Comments, questions etc. to
+	  <a href="mailto:Marcus.Brinkmann@ruhr-uni-bochum.de">Marcus Brinkmann</a>.
+	</p>
+	<p>
+	  Copyright &copy; 2000 Marcus Brinkmann
+	</p>
+	<p>
+	            Verbatim copying and distribution of this entire article
+          is permitted in any medium, provided this notice is preserved.
+	</p>
+      </div>
+    </div>
+  </body>
+</html>
+
