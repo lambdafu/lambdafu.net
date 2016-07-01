@@ -1,0 +1,1695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on January, 20  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>The FreeMD Manual: Net MD Protocol</TITLE>
+
+<META NAME="description" CONTENT="The FreeMD Manual: Net MD Protocol">
+<META NAME="keywords" CONTENT="The FreeMD Manual: Net MD Protocol">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC13"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_3.html#SEC12"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC14"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_3.html#SEC10"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1> A. Net MD Protocol </H1>
+<!--docid::SEC13::-->
+<P>
+
+The Net MD protocol specifies the details of the data exchange between
+the host and the Net MD compatible audio device.  This protocol was
+developed by Sony (Sony is a registered trademark of the Sony
+Corporation), and proprietary.  There is no public information on this
+protocol provided by Sony.  This appendix summarizes what is known
+about this protocol from reverse engineering efforts.
+</P><P>
+
+Many commands, especially those used by prorietary software with Net
+MD support, are known.  Some more commands are known to exist, but we
+don't know how they look like.  Some other features seem desirable,
+but we don't know if they are available at all in the firmware or even
+hardware of the audio devices we use.
+</P><P>
+
+Of those commands we do know, we understand little about the semantic
+meaning of each byte.  Some patterns reoccur, and lead themselve to a
+certain interpretation, but there is no homogenous and simple
+interpretation of all data transfered.  Sometimes we don't even know
+what a certain command does, just that it is used by some proprietary
+software and/or that it is accepted by the player.
+</P><P>
+
+Please note that not all variations of each command has been tested on
+each audio device.  If you notice that your Net MD compliant audio
+device behaves different than described here, we would like to learn
+about it.
+</P><P>
+
+All numbers in this paragraph are hexadecimal, and typesetted like
+this: <CODE>00</CODE>, <CODE>a2</CODE>, <CODE>cf</CODE>, <CODE>3b</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC14">A.1 Transferring Data</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Using USB to transfer data.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC15">A.2 Command Syntax</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The structure of a command request.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC24">A.3 Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The available commands.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Transferring Data"></A>
+<HR SIZE="6">
+<A NAME="SEC14"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> A.1 Transferring Data </H2>
+<!--docid::SEC14::-->
+<P>
+
+The USB port of a Net MD audio device provides one interface (class
+255, subclass 0, protocol 0) and three endpoints.
+</P><P>
+
+<OL>
+<LI>
+Endpoint 0 is of type interrupt and has the direction input.  It is
+used to send control and query commands to the Net MD device.  This is
+the main interface used for everything except transferring the actual
+audio data.
+<P>
+
+<LI>
+Endpoint 1 is of type bulk and has the direction output.  It is
+unknown if this is ever used, but it could possibly used to transfer
+audio data to the host.
+<P>
+
+<LI>
+Endpoint 2 is of type bulk and has the direction input.  It is used to
+transfer audio data to the Net MD device.
+</OL>
+<P>
+
+FIXME More information about the USB communication: Vendor request,
+polling, etc.  Help appreciated!
+</P><P>
+
+<A NAME="Command Syntax"></A>
+<HR SIZE="6">
+<A NAME="SEC15"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC14"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC16"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> A.2 Command Syntax </H2>
+<!--docid::SEC15::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC16">A.2.1 Basic Syntax Rules</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Some general information about form.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC17">A.2.2 Backward Compatibility</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to test for features.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC18">A.2.3 Data Types</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to pass various information.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC23">A.2.4 Return Status</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to tell if a command succeeded.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Basic Syntax Rules"></A>
+<HR SIZE="6">
+<A NAME="SEC16"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC17"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.2.1 Basic Syntax Rules </H3>
+<!--docid::SEC16::-->
+<P>
+
+Every request starts with the byte <CODE>00</CODE>, which is also a
+placeholder for the return status.
+</P><P>
+
+The second byte of every request is <CODE>18</CODE>.  The meaning is unknown
+(someone suggested it is a peripheral index(?)).
+</P><P>
+
+The third byte specifies the command or group of commands.
+</P><P>
+
+What follows next is different for each command.  Most commands seem
+to belong to one of two different categories, though, and follow one
+of the following two patterns:
+</P><P>
+
+<UL>
+<LI>
+First <CODE>ff</CODE>, then a byte that specifies a sub-command (usually
+<CODE>00</CODE> or <CODE>01</CODE>), then <CODE>00</CODE>, optionally followed by one or
+more arguments to the command.  For example, <CODE>00 18 40 ff 00 00</CODE>
+erases the entire data medium while <CODE>00 18 40 ff 01 00 20 10 01
+00 01</CODE> erases only the second track.  Sometimes more than one padding
+<CODE>00</CODE> follow the sub-command byte.
+<P>
+
+Such commands usually don't return any data except the status return
+code.  If successful, the <CODE>ff</CODE> is set to <CODE>00</CODE> in the reply.
+</P><P>
+
+<LI>
+Often, the first byte is the number of arguments that follow, then the
+arguments, which can also contain a sub-command specifier.  Then
+<CODE>ff</CODE>, followed by <CODE>00 00 00 00 00</CODE>.  Sometimes instead five
+times <CODE>00</CODE>, some bytes are already set up as required for the
+reply.
+<P>
+
+Such commands usually return one or more bytes of data beside the
+status return code.  If successful, the <CODE>ff</CODE> is set to <CODE>10</CODE>,
+and the word after the following byte contains the length of the
+returned data.  For example, <CODE>00 18 09 80 01 02 30 88 00 00 30 88
+04 00 ff 00 00 00 00 00</CODE> might return <CODE>09 18 09 80 01 02 30 88 00
+00 30 88 04 00 10 00 00 09 00 00 00 07 88 04 00 03 40 ff 40</CODE>.  The
+<CODE>10 00 00 09</CODE> indicates that the returned additional data
+<CODE>00 07 88 04 00 03 40 ff 40</CODE> is nine bytes long.
+</UL>
+<P>
+
+Although many commands follow these patterns at least roughly, some
+don't.  For example, some commands take parameters before and after
+the <CODE>ff</CODE> byte.  Because of the lack of a universal rule, each
+command is defined separately, even though they sometimes share a lot
+with other commands.  We simply lack the semantic interpretation to
+make a more unified approach feasible.
+</P><P>
+
+<A NAME="Backward Compatibility"></A>
+<HR SIZE="6">
+<A NAME="SEC17"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC16"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.2.2 Backward Compatibility </H3>
+<!--docid::SEC17::-->
+<P>
+
+If you don't want to actually perform a request, but only check if a
+command is supported by the hardware, you can send the command with
+the first byte being <CODE>02</CODE> instead <CODE>00</CODE>, and some dummy
+parameters filled in.
+</P><P>
+
+If the device does not support the command, it will return the error
+status code <CODE>08</CODE>.  If it does support the command, it will return
+the status code <CODE>0c</CODE>.
+</P><P>
+
+<A NAME="Data Types"></A>
+<HR SIZE="6">
+<A NAME="SEC18"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC17"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC19"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.2.3 Data Types </H3>
+<!--docid::SEC18::-->
+<P>
+
+Commands and replies are transferred as byte streams.  Data types that
+take up more than a single byte are stored in network byte order
+(big-endian, most significant byte first).
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC19">A.2.3.1 Track Numbers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How track numbers are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC20">A.2.3.2 Times</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How times are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC21">A.2.3.3 Encodings</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How encodings are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC22">A.2.3.4 Tags</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Generic data type identifiers.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Track Numbers"></A>
+<HR SIZE="6">
+<A NAME="SEC19"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC20"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.2.3.1 Track Numbers </H4>
+<!--docid::SEC19::-->
+<P>
+
+Track numbers are two bytes long and zero-based.  This means that the
+first track is <CODE>00 00</CODE>, the second track is <CODE>00 01</CODE> and so
+on.
+</P><P>
+
+Currently the mini disc format only supports up to 254 tracks.  It
+seems that the track <CODE>00 ff</CODE> is special and used to store
+information about the disc, like the disc title.  However, there is no
+need to make use of this factoid and it is unknown what happens to
+track <CODE>00 ff</CODE> when it becomes a valid track number.
+</P><P>
+
+<A NAME="Times"></A>
+<HR SIZE="6">
+<A NAME="SEC20"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC19"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC21"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC21"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.2.3.2 Times </H4>
+<!--docid::SEC20::-->
+<P>
+
+Times are specified in the BCD (Binary Coded Decimal)
+format.<A NAME="DOCF1" HREF="freemd_fot.html#FOOT1">(1)</A>  It uses one
+nibble (four bit) for each decimal digit.  For example, decimal number
+<CODE>96</CODE> becomes the hexadecimal number <CODE>96</CODE> in BCD format.  In
+fact, the representation of a number is always the same in decimal and
+hexadecimal BCD format.
+</P><P>
+
+The times specified in the NetMD protocol are four bytes long.  The
+first byte specifies the number of hours, the second the number of
+minutes, the third the number of seconds, and the fourth byte the
+number of frames.  The time 110:43.12 (one hour, fifty minutes,
+fourty-three seconds and twelve frames) would be encoded as <CODE>01
+50 43 12</CODE>.
+</P><P>
+
+One frame is 512 ATRAC samples.  With a sampling rate of 44.100 Hz
+this means that one second contains about 86.132812 frames.
+</P><P>
+
+<A NAME="Encodings"></A>
+<HR SIZE="6">
+<A NAME="SEC21"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC20"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC22"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC22"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.2.3.3 Encodings </H4>
+<!--docid::SEC21::-->
+<P>
+
+The audio data format is specified by a single byte that contains
+information about the codec (<CODE>90</CODE> for SP, <CODE>92</CODE> for LP2 and
+<CODE>93</CODE> for LP4), followed by a byte that contains information about
+the number of channels (this byte is <CODE>00</CODE> for stereo and
+<CODE>01</CODE> for mono).  The following values are possible:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>90 00</CODE>
+<DD>stereo SP, ATRAC1 encoded, 292 kbps
+<P>
+
+<DT><CODE>90 01</CODE>
+<DD>mono SP format, ATRAC1 encoded, 146 kbps
+<P>
+
+<DT><CODE>92 00</CODE>
+<DD>stereo LP2 format, ATRAC3 encoded, 132kbps
+<P>
+
+<DT><CODE>92 01</CODE>
+<DD>mono LP2 format, ATRAC3 encoded, 132kbps
+<P>
+
+<DT><CODE>93 00</CODE>
+<DD>stereo LP4 format, ATRAC3 encoded, 66kbps
+<P>
+
+<DT><CODE>93 01</CODE>
+<DD>mono LP4 format, ATRAC3 encoded, 66kbps
+</DL>
+<P>
+
+<A NAME="Tags"></A>
+<HR SIZE="6">
+<A NAME="SEC22"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC21"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC18"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.2.3.4 Tags </H4>
+<!--docid::SEC22::-->
+<P>
+
+In the Net MD protocol some byte sequences occur systematically near a
+parameter that has a specific meaning.  For example, the track number
+is often prefixed by <CODE>20 10 01 00</CODE>.  In other cases, we can
+conclude that certain bytes are length parameters that say how many
+bytes follow.  From this, we can make certain assumptions about the
+meaning of certain byte sequences.
+</P><P>
+
+Please take this list with a grain of salt.  There is not sufficient
+data to verify these assumptions, nor is the existing data strictly in
+line with them.
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>10 10 00</CODE>
+<DD>"Disc" or "disc-related", "data medium".  This occurs in the
+commands to retrieve disc properties like the capacity or write
+protection flags.
+<P>
+
+<DT><CODE>20 10 01 00 $t</CODE>
+<DD>"Track number $t".  Almost always track numbers are specified in
+this way.
+<P>
+
+<DT><CODE>30 00 10 00</CODE>
+<DD>"Track count" (of a disc).
+<P>
+
+<DT><CODE>30 00 0a 00</CODE>
+<DD>"Title" (of a disc or track).
+<P>
+
+<DT><CODE>30 00 01 00</CODE>
+<DD>"Length" (of a track).
+<P>
+
+<DT><CODE>30 80 03 00</CODE>
+<DD>"Capacity" (of a disc).
+<P>
+
+<DT><CODE>30 80 07 00</CODE>
+<DD>"Bitrate" (of a track).
+</DL>
+<P>
+
+This table is not complete, and likely incorrect.  We just don't know
+better.  If you have some enlightnment when looking at the command
+sequences, share your ideas with us, and maybe we can improve the
+list.
+</P><P>
+
+<A NAME="Return Status"></A>
+<HR SIZE="6">
+<A NAME="SEC23"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC22"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC15"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.2.4 Return Status </H3>
+<!--docid::SEC23::-->
+<P>
+
+After sending the command, the Net MD device sends a reply.  The reply
+is usually similar to the request, with some bytes altered and
+sometimes some bytes appended.  The first byte indicates a status
+code:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>08</CODE>
+<DD>The command was invalid.  This indicates a syntax error or that the
+command is not supported.
+<P>
+
+<DT><CODE>09</CODE>
+<DD>The command was accepted and processed successfully.
+<P>
+
+<DT><CODE>0a</CODE>
+<DD>The command was recognized, but couldn't be executed because of some
+reason.  Possible reasons include that the disc is blank, or that an
+argument (like a track number) was out of range.
+<P>
+
+<DT><CODE>0c</CODE>
+<DD>The command is supported (in response to a command starting with
+<CODE>02</CODE>).
+</DL>
+<P>
+
+<A NAME="Commands"></A>
+<HR SIZE="6">
+<A NAME="SEC24"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC23"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H2> A.3 Commands </H2>
+<!--docid::SEC24::-->
+<P>
+
+The commands are formatted to make the different arguments and their
+interpretation more visible, but the formatting is not part of the
+command of course.  The arguments are prepended by a <CODE>$</CODE> sign and
+repeated as often as the number of bytes they occupate.  For example,
+a track number would be specified as <CODE>$t $t</CODE>.
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC25">A.3.1 Device Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to device control.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC36">A.3.2 Disc Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to disk properties.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC43">A.3.3 Track Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to track properties.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Device Commands"></A>
+<HR SIZE="6">
+<A NAME="SEC25"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC26"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.3.1 Device Commands </H3>
+<!--docid::SEC25::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC26">A.3.1.1 Exclusive Login</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setting up the connection.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC27">A.3.1.2 Get Disc Count</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving information about inserted discs.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC28">A.3.1.3 Get Disc Operating Mode Status</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the operating mode.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC29">A.3.1.4 Get Play Counter</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the current playback position.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC30">A.3.1.5 Get Recording Parameters</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the recording parameters.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC31">A.3.1.6 Play Audio</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set playback operating mode.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC32">A.3.1.7 Stop Play</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Stop playback.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC33">A.3.1.8 Set Play Counter By Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter to the beginning of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC34">A.3.1.9 Set Play Counter By Time</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter within a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC35">A.3.1.10 Search Audio Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter to next or previous track.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Exclusive Login"></A>
+<HR SIZE="6">
+<A NAME="SEC26"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC27"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.1 Exclusive Login </H4>
+<!--docid::SEC26::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>00 ff 01 0c ff ff ff ff ff ff ff ff ff ff ff ff</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>09 ff 01 0c ff ff ff ff ff ff ff ff ff ff ff ff</CODE>
+</DL>
+<P>
+
+Request exclusive access to the device.  This is used at the beginning
+of a session.  It is not known how a conflict between two users is
+recognized.
+</P><P>
+
+After using the device, before shutting down the connection, the
+following command is used to end the session:
+</P><P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>00 ff 01 00 ff ff ff ff ff ff ff ff ff ff ff ff</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>09 ff 01 00 ff ff ff ff ff ff ff ff ff ff ff ff</CODE>
+</DL>
+<P>
+
+Give up exclusive access to the device.
+</P><P>
+
+<A NAME="Get Disc Count"></A>
+<HR SIZE="6">
+<A NAME="SEC27"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC26"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC28"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC28"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.2 Get Disc Count </H4>
+<!--docid::SEC27::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 09&#62; 80 01 &#60;02: 30 88 00 00, 30 88 04 00&#62; ff 00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 09&#62; 80 01 &#60;02: 30 88 00 00, 30 88 04 00&#62; 10 00 00 09 00
+00 &#60;00 07: 88 04 &#60;00 03: $x ff 40&#62;&#62;</CODE>
+</DL>
+<P>
+
+This function returns the number of discs present.  On single-deck
+players, <CODE>$x</CODE> is <CODE>40</CODE> if a disc is present in the player,
+and <CODE>80</CODE> if no disc is present.
+</P><P>
+
+Note: If the command fails, send <CODE>00 18 08 80 00 01 00</CODE> and try
+one more time.  We don't know what that means, though.
+</P><P>
+
+Note: Are there any Net MD capable multi-deck players out there?  If
+yes, what does this command do with these?
+</P><P>
+
+<A NAME="Get Disc Operating Mode Status"></A>
+<HR SIZE="6">
+<A NAME="SEC28"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC27"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC29"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC29"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.3 Get Disc Operating Mode Status </H4>
+<!--docid::SEC28::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 09&#62; 80 01 &#60;03: 30 88 02 00, 30 88 05 00, 30 88 06 00&#62; ff
+00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 09&#62; 80 01 &#60;03: 30 88 02 00, 30 88 05 00, 30 88 06 00&#62; ff
+10 00 00 08 00 00 &#60;00 06: 88 06 &#60;00 02: $x $y&#62;&#62;</CODE>
+</DL>
+<P>
+
+This function returns the disc operating mode status.  The bytes
+<CODE>$x $y</CODE> indicate the status as specified in the following table:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>56 ff</CODE>
+<DD>Recording (over USB)
+<DT><CODE>c2 75</CODE>
+<DD>Recording
+<DT><CODE>c2 7d</CODE>
+<DD>Recording Paused
+<DT><CODE>c3 3f</CODE>
+<DD>Fast Forwarding
+<DT><CODE>c3 4f</CODE>
+<DD>Rewinding
+<DT><CODE>c3 75</CODE>
+<DD>Playing
+<DT><CODE>c3 7d</CODE>
+<DD>Pausing
+<DT><CODE>c5 ff</CODE>
+<DD>Stopped
+</DL>
+<P>
+
+Note: If the command fails, send <CODE>00 18 08 80 00 01 00</CODE> and try
+one more time.  We don't know what that means, though.
+</P><P>
+
+<A NAME="Get Play Counter"></A>
+<HR SIZE="6">
+<A NAME="SEC29"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC28"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC30"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC30"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.4 Get Play Counter </H4>
+<!--docid::SEC29::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 09&#62; 80 01 &#60;04: 30 88 02 00, 30 88 05 00, 30 00 03 00, 30
+00 02 00&#62; ff 00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 09&#62; 80 01 &#60;04: 30 88 02 00, 30 88 05 00, 30 00 03 00, 30
+00 02 00&#62; 10 00 00 0d 00 00 &#60;00 0b: 00 02 &#60;00 07: 00 $t $t $h $m $s $f&#62;&#62;</CODE>
+</DL>
+<P>
+
+This function returns the current playback position.  The current
+position is in track <CODE>$t $t</CODE>, at the time specified by
+<CODE>$h</CODE>:<CODE>$m</CODE>:<CODE>$s</CODE>:<CODE>$f</CODE>.  <CODE>$h</CODE> is the hours,
+<CODE>$m</CODE> the minutes, <CODE>$s</CODE> the seconds, and <CODE>$f</CODE> the frames
+within the track.  <CODE>$h</CODE>, <CODE>$m</CODE>, <CODE>$s</CODE> and <CODE>$f</CODE> are
+in BCD format.
+</P><P>
+
+Note: If the command fails, send <CODE>00 18 08 80 00 01 00</CODE> and try
+one more time.  We don't know what that means, though.
+</P><P>
+
+<A NAME="Get Recording Parameters"></A>
+<HR SIZE="6">
+<A NAME="SEC30"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC29"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC31"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC31"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.5 Get Recording Parameters </H4>
+<!--docid::SEC30::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 08&#62; 80 00 01 00</CODE>
+<P>
+
+<CODE>&#60;00 18 09&#62; 80 01 &#60;03: 30 88 01 00, 30 88 05 00, 30 88 07 00&#62; ff
+00 00 00 00 00</CODE>
+</P><P>
+
+<CODE>&#60;00 18 08&#62; 80 00 00 00</CODE>
+</P><P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 08&#62; 80 00 01 00</CODE>
+<P>
+
+<CODE>&#60;09 18 09&#62; 80 01 &#60;03: 30 88 01 00, 30 88 05 00, 30 88 07 00&#62; 10
+00 00 0e 00 00 &#60;00 0c: 88 05 &#60;00 08: 80 e0 01 10 $e $m 40 00&#62;&#62;</CODE>
+</P><P>
+
+<CODE>&#60;09 18 08&#62; 80 00 00 00</CODE>
+</DL>
+<P>
+
+This function returns the current active recording parameters.  These
+parameters affect how the Get Disc Capacity function returns the
+available disk size.  <CODE>$e $m</CODE> is the encoding (see Data Types)
+that is used for recording.
+</P><P>
+
+Note: We don't know what the embracing commands mean.
+</P><P>
+
+Note: The <CODE>40 00</CODE> also has a meaning and might be variable, but
+we don't know more about it.
+</P><P>
+
+<A NAME="Play Audio"></A>
+<HR SIZE="6">
+<A NAME="SEC31"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC30"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC32"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC32"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.6 Play Audio </H4>
+<!--docid::SEC31::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 c3&#62; ff $a 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 c3&#62; ff $a 00 00 00</CODE>
+</DL>
+<P>
+
+This fuction controls the playback operation.  The meaning of $a is
+described in the following table:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>39</CODE>
+<DD>Fast Forward
+<P>
+
+<DT><CODE>49</CODE>
+<DD>Rewind
+<P>
+
+<DT><CODE>75</CODE>
+<DD>Play
+<P>
+
+<DT><CODE>7d</CODE>
+<DD>Pause
+</DL>
+<P>
+
+<A NAME="Stop Play"></A>
+<HR SIZE="6">
+<A NAME="SEC32"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC31"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC33"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC33"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.7 Stop Play </H4>
+<!--docid::SEC32::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 c5&#62; ff 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 c5&#62; ff 00 00 00 00</CODE>
+</DL>
+<P>
+
+This fuction stops playback and resets the playback status.
+</P><P>
+
+<A NAME="Set Play Counter By Track"></A>
+<HR SIZE="6">
+<A NAME="SEC33"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC32"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC34"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC34"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.8 Set Play Counter By Track </H4>
+<!--docid::SEC33::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 50&#62; ff 01 00 00 00 00 $t $t</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 50&#62; 00 01 00 00 00 00 $t $t</CODE>
+</DL>
+<P>
+
+This fuction sets the current playback position to the beginning of
+track <CODE>$t $t</CODE>.
+</P><P>
+
+<A NAME="Set Play Counter By Time"></A>
+<HR SIZE="6">
+<A NAME="SEC34"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC33"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC35"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.9 Set Play Counter By Time </H4>
+<!--docid::SEC34::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 50&#62; ff 00 00 00 00 00 $t $t $h $m $s $f</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 50&#62; 00 00 00 00 00 00 $t $t $h $m $s $f</CODE>
+</DL>
+<P>
+
+This fuction sets the current playback position to the time <CODE>$h
+$m $s $f</CODE> from the beginning of track <CODE>$t $t</CODE>.
+</P><P>
+
+The actual position will be at the nearest frame that can be
+positioned by the hardware.
+</P><P>
+
+<A NAME="Search Audio Track"></A>
+<HR SIZE="6">
+<A NAME="SEC35"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC34"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC27"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC25"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.1.10 Search Audio Track </H4>
+<!--docid::SEC35::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 50&#62; ff 10 00 00 00 00 $u $v</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 50&#62; 00 10 00 00 00 00 $u $v</CODE>
+</DL>
+<P>
+
+This fuction sets the current playback position relativ to the current
+playback position, according to <CODE>$u $v</CODE>.  Possible values for
+<CODE>$u $v</CODE> are listed in the following table:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>00 01</CODE>
+<DD>Set the playback position to the beginning of the current track.
+<P>
+
+<DT><CODE>00 02</CODE>
+<DD>Set the playback position to the beginning of the previous track.
+<P>
+
+<DT><CODE>80 01</CODE>
+<DD>Set the playback position to the beginning of the next track.
+</DL>
+<P>
+
+<A NAME="Disc Commands"></A>
+<HR SIZE="6">
+<A NAME="SEC36"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC35"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC37"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.3.2 Disc Commands </H3>
+<!--docid::SEC36::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC37">A.3.2.1 Get Disc Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the title of the disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC38">A.3.2.2 Get Disc Flags</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the disc flags.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC39">A.3.2.3 Get Disc Capacity</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve disc size and available space.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC40">A.3.2.4 Set Disc Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set the title of a disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC41">A.3.2.5 Get Track Count</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the number of tracks on the disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC42">A.3.2.6 Erase Disc</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Turn a disc into a blank disc.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Get Disc Title"></A>
+<HR SIZE="6">
+<A NAME="SEC37"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC38"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.1 Get Disc Title </H4>
+<!--docid::SEC37::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>00 18 08 10 18 01 01 00</CODE>
+<P>
+
+<CODE>&#60;00 18 06&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; ff 00 00 00 00 00</CODE>
+</P><P>
+
+[<CODE>&#60;00 18 06&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; ff 00 $r $r $g $g</CODE>
+ ...]
+</P><P>
+
+<CODE>00 18 08 10 18 01 00 00</CODE>
+</P><P>
+
+<DT>Reply
+<DD><CODE>09 18 08 10 18 01 01 00</CODE>
+<P>
+
+<CODE>&#60;09 18 06&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; 10 00 $l3 $l3 00 00
+&#60;$l2 $l2: 00 0a &#60;$l $l: &#60;data1&#62;</CODE>
+</P><P>
+
+[<CODE>&#60;09 18 06&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; 10 00 $l4 $l4 $g $g
+&#60;data2&#62;</CODE> ...]
+</P><P>
+
+<CODE>09 18 08 10 18 01 00 00</CODE>
+</DL>
+<P>
+
+This function returns the disc title.  However, the full title might
+be up to 1793 bytes long, and not fit into a single reply.  For this
+reason, you might have to request the whole title in chunks.
+</P><P>
+
+The initial reply contains the size of the first chunk of the
+additional data returned into <CODE>$l3 $l3</CODE>.  The length of the whole
+title is returned in <CODE>$l1 $l1</CODE> (while <CODE>$l2 $l2</CODE> is usually
+<CODE>$l1 $l1</CODE> plus 4 for the type tag <CODE>00 0a</CODE> and title length
+parameter).  <CODE>&#60;data1&#62;</CODE> is the title or the initial part of the
+title and <CODE>$l3 l3</CODE> minus 6 bytes long.  If the whole title could
+be returned at once, <CODE>$l3 $l3</CODE> will be <CODE>$l1 $l1</CODE> plus 6, and
+thus <CODE>$l1 $l1</CODE> is also the length of <CODE>&#60;data1&#62;</CODE>.
+</P><P>
+
+If <CODE>$l3 $l3</CODE> was shorter than <CODE>$l1 $l1</CODE> plus 6, you will
+have to request the next part of the title with the second form of the
+command.  This form takes two additional length parameters.  <CODE>$r
+$r</CODE> indicates the number of bytes you still have to read, while
+<CODE>$g $g</CODE> indicates the number of bytes you have just read.  Here
+is an example: In the reply, <CODE>$l4 $l4</CODE> will be changed to the
+length of the <CODE>&#60;data2&#62;</CODE> returned (if this is not <CODE>$r $r</CODE>,
+you have to iterate over this command until you got all bytes of the
+title).
+</P><P>
+
+The title is <CODE>01 15</CODE> bytes long.  In the first reply, <CODE>$l1
+$l1</CODE> will be <CODE>01 15</CODE>, <CODE>$l2 $l2</CODE> will be <CODE>01 17</CODE>, while
+<CODE>$l3 $l3</CODE> might only be <CODE>00 d8</CODE>.  In this case, only
+<CODE>00 d8</CODE> minus 6, that is <CODE>00 d2</CODE> bytes of the title are
+returned in <CODE>&#60;data&#62;</CODE>.  The next request is done with <CODE>$r $r</CODE>
+being <CODE>01 15</CODE> minus <CODE>00 d2</CODE>, that is <CODE>00 43</CODE>, and
+<CODE>$g $g</CODE> being <CODE>00 d2</CODE>.  The remaining <CODE>00 43</CODE> bytes of
+the title will be returned in <CODE>&#60;data2&#62;</CODE>.
+</P><P>
+
+If $w is 00, the normal disc title is returned.  If $w is 01, the
+wchar title is returned.  Both titles are independant strings.
+</P><P>
+
+Note: It is unknown how you can detect if the player works with the
+normal titles and when it works with the wchar titles.
+</P><P>
+
+Note: It is unknown what the embracing commands mean.
+</P><P>
+
+FIXME: The encoding of characters should be added in a section of its
+own.
+</P><P>
+
+<A NAME="Get Disc Flags"></A>
+<HR SIZE="6">
+<A NAME="SEC38"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC37"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC39"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC39"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.2 Get Disc Flags </H4>
+<!--docid::SEC38::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 08&#62; 10 10 00 01 00</CODE>
+<P>
+
+<CODE>&#60;00 18 06&#62; &#60;01: 10 10 00&#62; ff 00 00 01 00 0b</CODE>
+</P><P>
+
+<CODE>&#60;00 18 08&#62; 10 10 00 00 00</CODE>
+</P><P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 08&#62; 10 10 00 01 00</CODE>
+<P>
+
+<CODE>&#60;09 18 06&#62; &#60;01: 10 10 00&#62; ff 00 00 01 00 0b $f</CODE>
+</P><P>
+
+<CODE>&#60;09 18 08&#62; 10 10 00 00 00</CODE>
+</DL>
+<P>
+
+This function returns the disc flags in $f, which is a bit-wise OR of
+the following values:
+</P><P>
+
+<DL COMPACT>
+<DT><CODE>10</CODE>
+<DD>The disc is a writable medium.  This is not true for pressed,
+pre-recorded mini discs.
+<P>
+
+<DT><CODE>40</CODE>
+<DD>The write protection flag is activated.
+</DL>
+<P>
+
+Note: If no disc is inserted, <CODE>40</CODE> is returned.
+</P><P>
+
+Note: We don't know what the embracing commands mean.
+</P><P>
+
+<A NAME="Get Disc Capacity"></A>
+<HR SIZE="6">
+<A NAME="SEC39"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC38"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC40"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC40"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.3 Get Disc Capacity </H4>
+<!--docid::SEC39::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 08&#62; 10 10 00 01 00</CODE>
+<P>
+
+<CODE>&#60;00 18 06&#62; &#60;02: 10 10 01, 30 80 03 00&#62; ff 00 00 00 00 00</CODE>
+</P><P>
+
+<CODE>&#60;00 18 08&#62; 10 10 00 00 00</CODE>
+</P><P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 08&#62; 10 10 00 01 00</CODE>
+<P>
+
+<CODE>&#60;09 18 06&#62; &#60;02: 10 10 01, 30 80 03 00&#62; 10 00 00 1d 00 00 &#60;00 1b:
+80 03 &#60;00 17: 80 00 &#60;00 05: $h1 $h1 $m1 $s1 $f1&#62; &#60;00 05: $h2 $h2 $m2 $s2
+$f2&#62; &#60;00 05: $h3 $h3 $m3 $s3 $f3&#62;&#62;&#62;</CODE>
+</P><P>
+
+<CODE>&#60;09 18 08&#62; 10 10 00 00 00</CODE>
+</DL>
+<P>
+
+This function returns the capacity of the disc, the recorded time and
+the time left that is available for recording.  The times returned are
+in BCD format.  The first time is the time used.  It is the actual
+time of music available for playback, and does already consider the
+bitrate of each title.
+</P><P>
+
+The second time is the total disc capacity if it were recorded in the
+format that is given by the current recording parameters (see Get
+Recording Parameters below).
+</P><P>
+
+The third time is the available disc size left for recording, if it
+were recorded in the format that is given by the current recording
+parameters.
+</P><P>
+
+Note: We don't know what the embracing commands mean.
+</P><P>
+
+<A NAME="Set Disc Title"></A>
+<HR SIZE="6">
+<A NAME="SEC40"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC39"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC41"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC41"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.4 Set Disc Title </H4>
+<!--docid::SEC40::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 07&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; 50 00 $l $l 00 00 $o $o &#60;data&#62;</CODE>
+<P>
+
+<DT>Request
+<DD><CODE>&#60;09 18 07&#62; &#60;02: 20 18 01 00 $w, 30 00 0a 00&#62; 50 00 $l $l 00 00 $o $o</CODE>
+</DL>
+<P>
+
+This function sets the disc title to &#60;data&#62;.  $o is the length of the
+old disc title, $l is the length of the new disc title &#60;data&#62;.  If $w
+is <CODE>00</CODE>, the normal title is set, if it is <CODE>01</CODE> the wchar
+title is set.
+</P><P>
+
+<A NAME="Get Track Count"></A>
+<HR SIZE="6">
+<A NAME="SEC41"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC40"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC42"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC42"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.5 Get Track Count </H4>
+<!--docid::SEC41::-->
+<P>
+
+<DL COMPACT>
+<DT>Reques
+<DD><CODE>&#60;00 18 08&#62; 10 10 01 01 00</CODE>
+<P>
+
+<CODE>&#60;00 18 06&#62; &#60;02: 10 10 01, 30 00 10 00&#62; ff 00 00 00 00 00</CODE>
+</P><P>
+
+<CODE>&#60;00 18 08&#62; 10 10 01 00 00</CODE>
+</P><P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 08&#62; 10 10 01 01 00</CODE>
+<P>
+
+<CODE>&#60;09 18 06&#62; &#60;02: 10 10 01, 30 00 10 00&#62; 10 00 00 08 00 00 &#60;00 06:
+00 10 &#60;00 02: $c $c&#62;&#62;</CODE>
+</P><P>
+
+<CODE>&#60;09 18 08&#62; 10 10 01 00 00</CODE>
+</DL>
+<P>
+
+This function returns the number of tracks on the disc in $c.
+</P><P>
+
+Note: We don't know what the embracing commands mean.
+</P><P>
+
+<A NAME="Erase Disc"></A>
+<HR SIZE="6">
+<A NAME="SEC42"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC41"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC36"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.2.6 Erase Disc </H4>
+<!--docid::SEC42::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 40&#62; ff 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 40&#62; 00 00 00</CODE>
+</DL>
+<P>
+
+This function erases all content of the mini disc.  The result is a
+blank disc.
+</P><P>
+
+Note: This command does not look out for protected tracks and will
+just erase the disk unconditionally.
+</P><P>
+
+<A NAME="Track Commands"></A>
+<HR SIZE="6">
+<A NAME="SEC43"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC42"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC44"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC24"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H3> A.3.3 Track Commands </H3>
+<!--docid::SEC43::-->
+<P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC44">A.3.3.1 Get Track Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the title of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC45">A.3.3.2 Get Track Protection</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the protection status of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC46">A.3.3.3 Get Track Length</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the length of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC47">A.3.3.4 Get Track Encoding</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the encoding of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC48">A.3.3.5 Set Track Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set the title of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC49">A.3.3.6 Erase Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Erase a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC50">A.3.3.7 Move Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Move a track to a different position.</TD></TR>
+</TABLE></BLOCKQUOTE>
+<P>
+
+<A NAME="Get Track Title"></A>
+<HR SIZE="6">
+<A NAME="SEC44"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC45"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.1 Get Track Title </H4>
+<!--docid::SEC44::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 06&#62; &#60;02: 20 18 $w $t $t 30 00 0a 00&#62; ff 00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 06&#62; &#60;02: 20 18 $w $t $t 30 00 0a 00&#62; 10 00 $l3 $l3 00 00
+&#60;$l2 $l2: 00 0a &#60;$l $l: &#60;data&#62;</CODE>
+</DL>
+<P>
+
+This function returns the title of track <CODE>$t $t</CODE> in &#60;data&#62;.  The
+length of the title is $l ($l2 is $l + 4, $l3 is $l + 6, although $l3
+seems to overflow at 00 d8).  If <CODE>$w</CODE> is <CODE>02</CODE>, the normal
+track title is returned.  If $w is <CODE>03</CODE>, the wchar title is
+returned.  Both titles are independant strings.
+</P><P>
+
+Note: It is unknown how you can detect if the player works with the
+normal titles and when it works with the wchar titles.
+</P><P>
+
+FIXME: The encoding of characters should be added in a section of its
+own.
+</P><P>
+
+<A NAME="Get Track Protection"></A>
+<HR SIZE="6">
+<A NAME="SEC45"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC44"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC46"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC46"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.2 Get Track Protection </H4>
+<!--docid::SEC45::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 06&#62; &#60;01: 20 10 01 $t $t&#62; ff 00 00 01 00 08</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;00 18 06&#62; &#60;01: 20 10 01 $t $t&#62; ff 00 00 01 00 08 $p</CODE>
+</DL>
+<P>
+
+This function returns the protection status for track <CODE>$t $t</CODE> in
+<CODE>$p</CODE>.  If the track is protected, <CODE>$p</CODE> is <CODE>03</CODE>,
+otherwise it is <CODE>00</CODE>.
+</P><P>
+
+<A NAME="Get Track Length"></A>
+<HR SIZE="6">
+<A NAME="SEC46"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC45"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC47"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC47"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.3 Get Track Length </H4>
+<!--docid::SEC46::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 06&#62; &#60;02: 20 10 01 $t $t, 30 00 01 00&#62; ff 00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 06&#62; &#60;02: 20 10 01 $t $t, 30 00 01 00&#62; 10 00 00 0c 00 00
+&#60;00 0a: 00 01 &#60;00 06: 00 00 $h $m $s $f&#62;&#62;</CODE>
+</DL>
+<P>
+
+This function returns the length of the track <CODE>$t $t</CODE> in <CODE>$h
+$m $s $f</CODE>.  The time returned is in BCD format and constitutes the
+total playing time of the track.
+</P><P>
+
+<A NAME="Get Track Encoding"></A>
+<HR SIZE="6">
+<A NAME="SEC47"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC46"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC48"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC48"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.4 Get Track Encoding </H4>
+<!--docid::SEC47::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 06&#62; &#60;02: 20 10 01 00 $t, 30 80 07 00&#62; ff 00 00 00 00 00</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 06&#62; &#60;02: 20 10 01 00 $t, 30 80 07 00&#62; 10 00 00 0a 00 00
+&#60;00 08: 80 07 &#60;00 04: 01 10 $u $v&#62;&#62;</CODE>
+</DL>
+<P>
+
+This function returns information about the encoding of the track $t
+in <CODE>$u $v</CODE> (see Data Types, Encodings).
+</P><P>
+
+<A NAME="Set Track Title"></A>
+<HR SIZE="6">
+<A NAME="SEC48"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC47"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC49"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC49"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.5 Set Track Title </H4>
+<!--docid::SEC48::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 07&#62; &#60;02: 20 18 $w $t $t, 30 00 0a 00&#62; 50 00 $l $l 00 00 $o $o &#60;data&#62;</CODE>
+<P>
+
+<DT>Request
+<DD><CODE>&#60;09 18 07&#62; &#60;02: 20 18 $w $t $t, 30 00 0a 00&#62; 50 00 $l $l 00 00 $o $o</CODE>
+</DL>
+<P>
+
+This function sets the title of track <CODE>$t $t</CODE> to <CODE>&#60;data&#62;</CODE>.
+<CODE>$o $o</CODE> is the length of the old track title, <CODE>$l $l</CODE> is the
+length of the new track title <CODE>&#60;data&#62;</CODE>.  If <CODE>$w</CODE> is
+<CODE>02</CODE>, the normal title is set, if it is <CODE>03</CODE> the wchar title
+is set.
+</P><P>
+
+<A NAME="Erase Track"></A>
+<HR SIZE="6">
+<A NAME="SEC49"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC48"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC50"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC50"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.6 Erase Track </H4>
+<!--docid::SEC49::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 40&#62; ff 01 00 &#60;20 10 01 $t $t&#62;</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 40&#62; 10 01 00 &#60;20 10 01 $t $t&#62;</CODE>
+</DL>
+<P>
+
+This function erases the track <CODE>$t $t</CODE>.  The following tracks are
+renumbered by subtracting 1 from the track number.
+</P><P>
+
+The protection status is ignored when erasing a track with this
+command.
+</P><P>
+
+<A NAME="Move Track"></A>
+<HR SIZE="6">
+<A NAME="SEC50"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC49"> &lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC43"> Up </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H4> A.3.3.7 Move Track </H4>
+<!--docid::SEC50::-->
+<P>
+
+<DL COMPACT>
+<DT>Request
+<DD><CODE>&#60;00 18 43&#62; ff 00 00 &#60;20 10 01 00 $s $s&#62; &#60;20 10 01 $d $d&#62;</CODE>
+<P>
+
+<DT>Reply
+<DD><CODE>&#60;09 18 43&#62; 00 00 00 &#60;20 10 01 00 $s $s&#62; &#60;20 10 01 $d $d&#62;</CODE>
+</DL>
+<P>
+
+This function moves the track <CODE>$s $s</CODE> to the position <CODE>$d
+$d</CODE>.  Track $d and all following tracks are renumbered to make space
+for the new track $d by adding 1 to the track number.
+</P><P>
+
+<A NAME="Copying"></A>
+<HR SIZE="6">
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_4.html#SEC13"> &lt;&lt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_5.html#SEC51"> &gt;&gt; </A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT"> &nbsp; <TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Marcus Brinkmann</I> on <I>January, 20  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>

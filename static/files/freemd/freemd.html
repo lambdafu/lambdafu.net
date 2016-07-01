@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+<!-- Created on January, 20  2003 by texi2html 1.65 -->
+<!-- 
+Written by: Lionel Cons <Lionel.Cons@cern.ch> (original author)
+            Karl Berry  <karl@freefriends.org>
+            Olaf Bachmann <obachman@mathematik.uni-kl.de>
+            and many others.
+Maintained by: Olaf Bachmann <obachman@mathematik.uni-kl.de>
+Send bugs and suggestions to <texi2html@mathematik.uni-kl.de>
+ 
+-->
+<HEAD>
+<TITLE>The FreeMD Manual: The FreeMD Manual</TITLE>
+
+<META NAME="description" CONTENT="The FreeMD Manual: The FreeMD Manual">
+<META NAME="keywords" CONTENT="The FreeMD Manual: The FreeMD Manual">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+<META NAME="Generator" CONTENT="texi2html 1.65">
+
+</HEAD>
+
+<BODY LANG="en" BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#0000FF" VLINK="#800080" ALINK="#FF0000">
+
+<A NAME="SEC_Top"></A>
+<TABLE CELLPADDING=1 CELLSPACING=1 BORDER=0>
+<TR><TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd.html#SEC_Top">Top</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_toc.html#SEC_Contents">Contents</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_7.html#SEC56">Index</A>]</TD>
+<TD VALIGN="MIDDLE" ALIGN="LEFT">[<A HREF="freemd_abt.html#SEC_About"> ? </A>]</TD>
+</TR></TABLE>
+<H1>The FreeMD Manual</H1>This is Edition 0.0.0, last updated 20 January 2003, of
+<CITE>The FreeMD Manual</CITE>, for Version 0.0.0 of the
+FreeMD library and utilities
+</P><P>
+
+<BLOCKQUOTE><TABLE BORDER=0 CELLSPACING=0> 
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_1.html#SEC1">1. Introduction</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to use this manual.</TD></TR>
+</TABLE>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_2.html#SEC5">2. Preparation</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">What you should do before using the library.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_3.html#SEC10">3. Error Handling</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Error numbers and their meanings.</TD></TR>
+</TABLE>
+
+<br>
+Appendices
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC13">A. Net MD Protocol</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The Net MD protocol explained.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_5.html#SEC51">B. GNU GENERAL PUBLIC LICENSE</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The GNU General Public License says how you
+                                  can copy and share FreeMD.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_6.html#SEC54">C. GNU Free Documentation License</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">This manual is under the GNU Free
+                                  Documentation License.</TD></TR>
+</TABLE>
+
+<br>
+Indices
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_7.html#SEC56">Concept Index</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Index of concepts and programs.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_8.html#SEC57">Function and Data Index</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Index of functions, variables and data types.</TD></TR>
+</TABLE>
+
+<br>
+&nbsp;--&nbsp;The&nbsp;Detailed&nbsp;Node&nbsp;Listing&nbsp;---
+<br>
+
+<br>
+Introduction
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_1.html#SEC2">1.1 Getting Started</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Purpose of the manual, and how to use it.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_1.html#SEC3">1.2 Features</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Reasons to install and use FreeMD.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_1.html#SEC4">1.3 Overview</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Basic architecture of FreeMD library and utilities.</TD></TR>
+</TABLE>
+
+<br>
+Preparation
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_2.html#SEC6">2.1 Header</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">What header file you need to include.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_2.html#SEC7">2.2 Building the Source</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Compiler options to be used.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_2.html#SEC8">2.3 Using Automake</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Compiler options to be used the easy way.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_2.html#SEC9">2.4 Multi Threading</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How FreeMD can be used in an MT environment.</TD></TR>
+</TABLE>
+
+<br>
+Error&nbsp;Handling
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_3.html#SEC11">3.1 Error Values</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">A list of all error values used.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_3.html#SEC12">3.2 Error Strings</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to get a descriptive string from a value.</TD></TR>
+</TABLE>
+
+<br>
+Net&nbsp;MD&nbsp;Protocol
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC14">A.1 Transferring Data</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Using USB to transfer data.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC15">A.2 Command Syntax</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The structure of a command request.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC24">A.3 Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">The available commands.</TD></TR>
+</TABLE>
+
+<br>
+Command&nbsp;Syntax
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC16">A.2.1 Basic Syntax Rules</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Some general information about form.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC17">A.2.2 Backward Compatibility</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to test for features.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC18">A.2.3 Data Types</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to pass various information.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC23">A.2.4 Return Status</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How to tell if a command succeeded.</TD></TR>
+</TABLE>
+
+<br>
+Data&nbsp;Types
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC19">A.2.3.1 Track Numbers</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How track numbers are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC20">A.2.3.2 Times</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How times are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC21">A.2.3.3 Encodings</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">How encodings are specified.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC22">A.2.3.4 Tags</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Generic data type identifiers.</TD></TR>
+</TABLE>
+
+<br>
+Commands
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC25">A.3.1 Device Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to device control.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC36">A.3.2 Disc Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to disk properties.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC43">A.3.3 Track Commands</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Commands related to track properties.</TD></TR>
+</TABLE>
+
+<br>
+Device&nbsp;Commands
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC26">A.3.1.1 Exclusive Login</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Setting up the connection.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC27">A.3.1.2 Get Disc Count</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving information about inserted discs.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC28">A.3.1.3 Get Disc Operating Mode Status</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the operating mode.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC29">A.3.1.4 Get Play Counter</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the current playback position.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC30">A.3.1.5 Get Recording Parameters</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the recording parameters.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC31">A.3.1.6 Play Audio</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set playback operating mode.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC32">A.3.1.7 Stop Play</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Stop playback.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC33">A.3.1.8 Set Play Counter By Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter to the beginning of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC34">A.3.1.9 Set Play Counter By Time</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter within a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC35">A.3.1.10 Search Audio Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set play counter to next or previous track.</TD></TR>
+</TABLE>
+
+<br>
+Disc&nbsp;Commands
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC37">A.3.2.1 Get Disc Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the title of the disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC38">A.3.2.2 Get Disc Flags</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieving the disc flags.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC39">A.3.2.3 Get Disc Capacity</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve disc size and available space.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC40">A.3.2.4 Set Disc Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set the title of a disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC41">A.3.2.5 Get Track Count</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the number of tracks on the disc.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC42">A.3.2.6 Erase Disc</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Turn a disc into a blank disc.</TD></TR>
+</TABLE>
+
+<br>
+Track&nbsp;Commands
+<br>
+
+<br>
+<TABLE BORDER=0 CELLSPACING=0>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC44">A.3.3.1 Get Track Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the title of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC45">A.3.3.2 Get Track Protection</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the protection status of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC46">A.3.3.3 Get Track Length</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the length of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC47">A.3.3.4 Get Track Encoding</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Retrieve the encoding of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC48">A.3.3.5 Set Track Title</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Set the title of a track.</TD></TR>
+<TR><TD ALIGN="left" VALIGN="TOP"><A HREF="freemd_4.html#SEC50">A.3.3.7 Move Track</A></TD><TD>&nbsp;&nbsp;</TD><TD ALIGN="left" VALIGN="TOP">Move a track to a different position.</TD></TR>
+</TABLE>
+
+<br>
+</BLOCKQUOTE>
+<P>
+
+<HR SIZE=1>
+<BR>  
+<FONT SIZE="-1">
+This document was generated
+by <I>Marcus Brinkmann</I> on <I>January, 20  2003</I>
+using <A HREF="http://www.mathematik.uni-kl.de/~obachman/Texi2html
+"><I>texi2html</I></A>
+</FONT>
+
+</BODY>
+</HTML>
