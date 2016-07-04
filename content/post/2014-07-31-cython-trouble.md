@@ -40,7 +40,7 @@ Here are a couple of things I experienced using Cython to wrap my C++ library [g
 **Templates**
 
   * It's not possible to write meta-extension classes for template classes directly &#8211; only extension types for specific instantiations. [[Forum]][4]
-  * It's not possible to use non-type template arguments (as a workaround, you can use `ctypedef int THREE &#8220;3&#8221;`). [[Forum]][5]
+  * It's not possible to use non-type template arguments (as a workaround, you can use `ctypedef int THREE "3"`). [[Forum]][5]
   * It's also not possible to instantiate function templates, but there is a similar workaround. [[Forum]][6]
 
  [1]: http://github.com/lambdafu/grakopp
