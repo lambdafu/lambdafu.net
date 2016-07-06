@@ -7,5 +7,5 @@ update:
 	ssh -A onion 'git -C /srv/lambdafu/lambdafu.net pull'
 
 run:
+	rm -fR dev
 	hugo server -D -d dev
-
