@@ -1,7 +1,6 @@
 ---
 title: Attention, elasticsearch counts in UTF-16
 author: Marcus
-layout: post
 date: 2013-03-09T15:34:06+00:00
 url: /2013/03/09/attention-elasticsearch-counts-in-utf-16/
 categories:

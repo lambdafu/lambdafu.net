@@ -1,7 +1,6 @@
 ---
 title: User Interface Design failure common in Mac OS X, Ubuntu Unity and Gnome Shell 3
 author: Marcus
-layout: post
 date: 2011-10-17T01:43:00+00:00
 url: /2011/10/17/user-interface-design-failure-common-in-mac-os-x-ubuntu-unity-and-gnome-shell-3/
 categories:

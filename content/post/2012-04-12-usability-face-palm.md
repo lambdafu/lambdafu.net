@@ -1,7 +1,6 @@
 ---
 title: Usability Face Palm
 author: Marcus
-layout: post
 date: 2012-04-11T23:26:45+00:00
 url: /2012/04/12/usability-face-palm/
 categories:

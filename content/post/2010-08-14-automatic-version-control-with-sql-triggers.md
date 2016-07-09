@@ -1,7 +1,6 @@
 ---
 title: Automatic Version Control with SQL Triggers pt. 1
 author: Marcus
-layout: post
 date: 2010-08-13T22:00:45+00:00
 url: /2010/08/14/automatic-version-control-with-sql-triggers/
 categories:

@@ -1,7 +1,6 @@
 ---
 title: How many digits of SHA1 are needed to differentiate english words?
 author: Marcus
-layout: post
 date: 2010-08-17T22:00:45+00:00
 url: /2010/08/18/how-many-digits-of-sha1-are-needed-to-differentiate-english-words/
 categories:

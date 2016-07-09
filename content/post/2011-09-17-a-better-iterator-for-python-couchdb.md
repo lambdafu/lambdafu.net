@@ -1,7 +1,6 @@
 ---
 title: A better iterator for couchdb-python
 author: Marcus
-layout: post
 date: 2011-09-17T14:14:18+00:00
 url: /2011/09/17/a-better-iterator-for-python-couchdb/
 categories:

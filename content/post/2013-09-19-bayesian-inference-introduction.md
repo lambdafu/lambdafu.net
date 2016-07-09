@@ -1,7 +1,6 @@
 ---
 title: Bayesian inference introduction
 author: Marcus
-layout: post
 date: 2013-09-19T16:26:18+00:00
 url: /2013/09/19/bayesian-inference-introduction/
 categories:

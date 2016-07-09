@@ -1,7 +1,6 @@
 ---
 title: Adding extra margin to a PDF
 author: Marcus
-layout: post
 date: 2011-06-03T22:11:51+00:00
 url: /2011/06/04/adding-extra-margin-to-a-pdf/
 categories:

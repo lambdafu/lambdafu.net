@@ -1,7 +1,6 @@
 ---
 title: Fedora 18 Beta on Thinkpad T430s
 author: Marcus
-layout: post
 date: 2012-12-07T21:27:23+00:00
 url: /2012/12/07/fedora-18-beta-on-thinkpad-t430s/
 categories:

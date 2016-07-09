@@ -1,7 +1,6 @@
 ---
 title: Documenting Interfaces in Python
 author: Marcus
-layout: post
 date: 2010-08-09T08:00:05+00:00
 url: /2010/08/09/hello-world/
 categories:

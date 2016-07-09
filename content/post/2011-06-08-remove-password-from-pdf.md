@@ -1,7 +1,6 @@
 ---
 title: Remove passwords from PDF files
 author: Marcus
-layout: post
 date: 2011-06-08T01:51:47+00:00
 url: /2011/06/08/remove-password-from-pdf/
 categories:

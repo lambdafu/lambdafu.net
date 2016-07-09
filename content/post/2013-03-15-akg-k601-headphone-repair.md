@@ -1,7 +1,6 @@
 ---
 title: AKG K601 headphone repair
 author: Marcus
-layout: post
 date: 2013-03-15T00:40:47+00:00
 url: /2013/03/15/akg-k601-headphone-repair/
 categories:

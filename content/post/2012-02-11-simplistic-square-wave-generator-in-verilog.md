@@ -1,7 +1,6 @@
 ---
 title: Simplistic Square Wave Generator in Verilog
 author: Marcus
-layout: post
 date: 2012-02-11T15:47:35+00:00
 url: /2012/02/11/simplistic-square-wave-generator-in-verilog/
 categories:

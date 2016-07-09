@@ -1,7 +1,6 @@
 ---
 title: Docker trouble
 author: Marcus
-layout: post
 date: 2015-02-25T14:14:26+00:00
 url: /2015/02/25/docker-trouble/
 categories:

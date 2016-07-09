@@ -1,7 +1,6 @@
 ---
 title: Query Semantic MediaWiki with Angular through CORS
 author: Marcus
-layout: post
 date: 2014-10-16T12:28:53+00:00
 url: /2014/10/16/query-semantic-mediawiki-with-angular-through-cors/
 categories:

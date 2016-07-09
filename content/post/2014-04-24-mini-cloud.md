@@ -1,7 +1,6 @@
 ---
 title: Virtualization Technologies
 author: Marcus
-layout: post
 date: 2014-04-24T02:40:56+00:00
 url: /2014/04/24/mini-cloud/
 categories:

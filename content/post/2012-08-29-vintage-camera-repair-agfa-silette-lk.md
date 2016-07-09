@@ -1,7 +1,6 @@
 ---
 title: 'Vintage Camera Repair: Agfa Silette-LK'
 author: Marcus
-layout: post
 date: 2012-08-29T00:19:14+00:00
 url: /2012/08/29/vintage-camera-repair-agfa-silette-lk/
 categories:

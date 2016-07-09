@@ -1,7 +1,6 @@
 ---
 title: The whole browser window but a border
 author: Marcus
-layout: post
 date: 2015-10-19T22:03:08+00:00
 url: /2015/10/20/the-whole-browser-window-but-a-border/
 categories:

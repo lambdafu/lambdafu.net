@@ -1,7 +1,6 @@
 ---
 title: Cython Trouble
 author: Marcus
-layout: post
 date: 2014-07-31T15:15:55+00:00
 url: /2014/07/31/cython-trouble/
 categories:

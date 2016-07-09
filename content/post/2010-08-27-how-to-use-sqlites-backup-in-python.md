@@ -1,7 +1,6 @@
 ---
 title: How to use SQLite’s backup in Python
 author: Marcus
-layout: post
 date: 2010-08-26T22:00:35+00:00
 url: /2010/08/27/how-to-use-sqlites-backup-in-python/
 categories:

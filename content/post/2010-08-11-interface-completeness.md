@@ -1,7 +1,6 @@
 ---
 title: Interface Completeness
 author: Marcus
-layout: post
 date: 2010-08-10T22:00:41+00:00
 url: /2010/08/11/interface-completeness/
 categories:

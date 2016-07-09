@@ -1,7 +1,6 @@
 ---
 title: HSDPA USB stick repair
 author: Marcus
-layout: post
 date: 2012-02-27T00:42:34+00:00
 url: /2012/02/27/hsdpa-usb-stick-repair/
 categories:

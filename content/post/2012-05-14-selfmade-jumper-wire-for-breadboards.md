@@ -1,7 +1,6 @@
 ---
 title: Selfmade jumper wire for breadboards
 author: Marcus
-layout: post
 date: 2012-05-14T21:41:51+00:00
 url: /2012/05/14/selfmade-jumper-wire-for-breadboards/
 categories:

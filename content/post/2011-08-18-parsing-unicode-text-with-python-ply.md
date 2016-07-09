@@ -1,7 +1,6 @@
 ---
 title: Parsing Unicode text with Python PLY
 author: Marcus
-layout: post
 date: 2011-08-18T01:05:18+00:00
 url: /2011/08/18/parsing-unicode-text-with-python-ply/
 categories:

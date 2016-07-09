@@ -1,7 +1,6 @@
 ---
 title: Manual symbol version override
 author: Marcus
-layout: post
 date: 2014-04-30T23:16:14+00:00
 url: /2014/05/01/manual-symbol-version-override/
 categories:

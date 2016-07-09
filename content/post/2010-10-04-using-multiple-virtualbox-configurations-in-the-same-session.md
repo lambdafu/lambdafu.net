@@ -1,7 +1,6 @@
 ---
 title: Using multiple VirtualBox configurations in the same session
 author: Marcus
-layout: post
 date: 2010-10-04T13:38:05+00:00
 url: /2010/10/04/using-multiple-virtualbox-configurations-in-the-same-session/
 categories:

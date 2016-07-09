@@ -1,7 +1,6 @@
 ---
 title: 6 things you didn’t know about MediaWiki
 author: Marcus
-layout: post
 date: 2013-09-06T15:13:12+00:00
 url: /2013/09/06/6-things-you-didnt-know-about-mediawiki/
 categories:

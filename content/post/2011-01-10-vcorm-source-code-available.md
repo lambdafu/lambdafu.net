@@ -1,7 +1,6 @@
 ---
 title: VcOrm source code available
 author: Marcus
-layout: post
 date: 2011-01-10T02:28:53+00:00
 url: /2011/01/10/vcorm-source-code-available/
 categories:

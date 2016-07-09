@@ -1,7 +1,6 @@
 ---
 title: OpenSSH authorized_key options by version
 author: Marcus
-layout: post
 date: 2013-11-13T17:05:24+00:00
 url: /2013/11/13/openssh-authorized_key-options-by-version/
 categories:

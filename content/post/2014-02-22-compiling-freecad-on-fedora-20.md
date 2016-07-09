@@ -1,7 +1,6 @@
 ---
 title: Compiling FreeCad on Fedora 20
 author: Marcus
-layout: post
 date: 2014-02-22T00:11:38+00:00
 url: /2014/02/22/compiling-freecad-on-fedora-20/
 categories:

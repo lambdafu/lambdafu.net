@@ -1,7 +1,6 @@
 ---
 title: Fun with aptly
 author: Marcus
-layout: post
 date: 2015-01-15T09:33:37+00:00
 url: /2015/01/15/fun-with-aptly/
 categories:

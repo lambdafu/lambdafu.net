@@ -1,7 +1,6 @@
 ---
 title: Replacing native code with Cython
 author: Marcus
-layout: post
 date: 2013-08-07T03:32:50+00:00
 url: /2013/08/07/replacing-native-code-with-cython/
 categories:

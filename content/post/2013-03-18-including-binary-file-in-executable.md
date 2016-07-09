@@ -1,7 +1,6 @@
 ---
 title: Including binary file in executable
 author: Marcus
-layout: post
 date: 2013-03-18T11:37:34+00:00
 url: /2013/03/18/including-binary-file-in-executable/
 categories:

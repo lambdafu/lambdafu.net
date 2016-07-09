@@ -1,7 +1,6 @@
 ---
 title: Installing Fedora 16
 author: Marcus
-layout: post
 date: 2012-02-02T16:05:50+00:00
 url: /2012/02/02/installing-fedora-16/
 categories:

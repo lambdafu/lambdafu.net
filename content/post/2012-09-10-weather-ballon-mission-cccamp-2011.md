@@ -1,7 +1,6 @@
 ---
 title: Weather Ballon Mission CCCamp 2011
 author: Marcus
-layout: post
 date: 2012-09-09T22:55:45+00:00
 url: /2012/09/10/weather-ballon-mission-cccamp-2011/
 categories:

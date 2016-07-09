@@ -1,7 +1,6 @@
 ---
 title: SQL Alchemy and string interning
 author: Marcus
-layout: post
 date: 2010-08-19T22:00:45+00:00
 url: /2010/08/20/sql-alchemy-and-string-interning/
 categories:

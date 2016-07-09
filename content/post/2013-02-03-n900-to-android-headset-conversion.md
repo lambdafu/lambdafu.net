@@ -1,7 +1,6 @@
 ---
 title: N900 to HTC One X+ Headset Conversion
 author: Marcus
-layout: post
 date: 2013-02-03T16:56:25+00:00
 url: /2013/02/03/n900-to-android-headset-conversion/
 categories:

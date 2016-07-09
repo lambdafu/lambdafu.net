@@ -1,7 +1,6 @@
 ---
 title: Directory-local variables with Emacs 23
 author: Marcus
-layout: post
 date: 2011-02-02T14:13:13+00:00
 url: /2011/02/02/directory-local-variables-with-emacs-23/
 categories:
