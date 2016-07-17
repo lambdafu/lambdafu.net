@@ -39,7 +39,7 @@ From the front, the focus ring shield can be lifted, revealing three screws hold
 {{< figure src="/wp-content/gallery/agfa-silette-lk/dsc_2978.jpg"
     caption="The gears that transport the film.  This mechanism also binds to the shutter release lever." >}}
 {{< figure src="/wp-content/gallery/agfa-silette-lk/dsc_2980.jpg"
-    caption="The flash signal lines.  Unfortunately, I couldn&#039;t see the mechanism that triggers the flash." >}}
+    caption="The flash signal lines.  Unfortunately, I couldn’t see the mechanism that triggers the flash." >}}
 {{< figure src="/wp-content/gallery/agfa-silette-lk/dsc_2992.jpg"
     caption="The selenium light meter operates without batteries.  The electrical current from the photovoltaic selenium cell is strong enough to move a needle on a spring on top of an inductor.  There is an opposite mechanical force on the needle from a lever on the exposure/aperture ratio ring. I wonder how this mechanism is calibrated." >}}
 {{< figure src="/wp-content/gallery/agfa-silette-lk/dsc_2990.jpg"
