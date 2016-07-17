@@ -10,6 +10,7 @@ publication = "In *Designs, Codes and Cryptography* 49, 1-3 (2008), 273-288, Spr
 publication_short = "In *Designs, Codes and Cryptography* (2008)"
 selected = true
 title = "On the classification of APN functions up to dimension five"
+published = true
 #url_code = "#"
 #url_dataset = "#"
 #url_pdf = "http://dx.doi.org/10.1007/s10623-008-9194-6"

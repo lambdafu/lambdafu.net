@@ -6,7 +6,7 @@ date = "2007-06-12"
 image = ""
 image_preview = ""
 math = true
-publication = "Online"
+publication = ""
 publication_short = ""
 title = "Slave Songs of the United States"
 url_code = "//github.com/lambdafu/slave-songs"
@@ -16,6 +16,7 @@ url_pdf = "pdf/slave-songs-1.0-alpha.pdf"
 #url_project = ""
 #url_slides = "#"
 #url_video = "#"
+kind = "book"
 
 +++
 

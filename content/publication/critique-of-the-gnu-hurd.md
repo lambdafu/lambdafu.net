@@ -8,7 +8,6 @@ image_preview = ""
 math = true
 publication = "In *SIGOPS Operating Systems Review* 41, 4 (July 2007), 30-39, ACM"
 publication_short = "In *SIGOPS Oper. Syst. Rev.* (July 2007)"
-selected = true
 title = "A Critique of the GNU Hurd Multi-Server Operating System"
 #url_code = "#"
 #url_dataset = "#"

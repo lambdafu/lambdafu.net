@@ -6,9 +6,10 @@ date = "2003-01-20"
 image = ""
 image_preview = ""
 math = false
-publication = "Online"
+publication = ""
 publication_short = ""
 title = "The FreeMD Manual"
+kind = "book"
 
 [[url_custom]]
 name = "HTML"
