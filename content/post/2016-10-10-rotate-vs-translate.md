@@ -30,6 +30,13 @@ $$
   CR(-C)v = TRv
 $$
 
+Note: Because computer screens have the origin in the upper left with
+a flipped y-axis, the rotation matrix has the sign in the opposite
+place of mathematical convention.  To correct for that, I made the
+rotation in the picture below clockwise (also the opposite of
+mathematical convention).  Substituting $\alpha$ by $-\alpha'$
+everywhere will lead you to the traditional equations.
+
 Expanding the matrices yields:
 
 $$
